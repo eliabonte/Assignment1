@@ -7,17 +7,17 @@
 <!--carrello gru con spostamento orizzontale-->
 <g>
 <rect x = "400" y = "205" width = "160" height = "50" stroke = "black" stroke-width = "3" fill = "yellow" />
-<text x = "450" y = "170" fill = "grey"> tow truck </text>
-<line x1 = "400" y1 = "180" x2 = "560" y2 = "180"  stroke = "grey" stroke-width  = "2"/>
+<text x = "450" y = "170" fill = "black"> tow truck </text>
+<line x1 = "400" y1 = "180" x2 = "560" y2 = "180"  stroke = "black" stroke-width  = "2"/>
 </g>
 
 <!--asta movente-->
 <g transform  = "rotate(-30,480,230)">
 <rect x = "460" y = "230" width = "40" height = "600" stroke = "black" stroke-width = "3" fill = "orange" />
-<text x = "620" y = "500" fill = "grey"> shaft </text>
-<line x1 = "600" y1 = "230" x2 = "600" y2 = "830"  stroke = "grey" stroke-width  = "2"/>
-<text x = "400" y = "490" fill = "grey"> rotation </text>
-<line x1 = "370" y1 = "500" x2 = "460" y2 = "500"  stroke = "grey" stroke-width  = "2"/>
+<text x = "620" y = "500" fill = "black"> shaft </text>
+<line x1 = "600" y1 = "230" x2 = "600" y2 = "830"  stroke = "black" stroke-width  = "2"/>
+<text x = "390" y = "490" fill = "black"> rotation </text>
+<line x1 = "370" y1 = "500" x2 = "460" y2 = "500"  stroke = "black" stroke-width  = "2"/>
 <circle cx = "480" cy = "230" r = "10" stroke = "black" stroke-width = "3" fill = "white"/>
 <circle cx = "480" cy = "830" r = "10" stroke = "black" stroke-width = "3" fill = "white"/>
 </g>
@@ -25,18 +25,14 @@
 <!--piattaforma-->
 <g>
 <rect x = "620" y = "750" width = "320" height = "20"  stroke = "black" stroke-width = "3" fill = "black" />
-<text x = "750" y = "820" fill = "grey"> platform </text>
-<line x1 = "620" y1 = "790" x2 = "940" y2 = "790"  stroke = "grey" stroke-width  = "2"/>
+<text x = "750" y = "820" fill = "black"> platform </text>
+<line x1 = "620" y1 = "790" x2 = "940" y2 = "790"  stroke = "black" stroke-width  = "2"/>
 </g>
 
+<!--quota spostamento carrello-->
 <g>
-<text x = "330" y = "220" fill = "grey"> sliding </text>
-<line x1 = "300" y1 = "230" x2 = "400" y2 = "230"  stroke = "grey" stroke-width  = "2"/>
-</g>
-
-<g>
-<text x = "330" y = "220" fill = "grey"> sliding </text>
-<line x1 = "300" y1 = "230" x2 = "400" y2 = "230"  stroke = "grey" stroke-width  = "2"/>
+<text x = "330" y = "220" fill = "black"> sliding </text>
+<line x1 = "300" y1 = "230" x2 = "400" y2 = "230"  stroke = "black" stroke-width  = "2"/>
 </g>
 
 
