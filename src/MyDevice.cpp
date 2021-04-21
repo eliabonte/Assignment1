@@ -193,15 +193,13 @@ double eb_Yplatform(Device* eb_device){
 */
 void eb_save_to_file(Device* eb_device){
     
-    // Create and open a text file
-    ofstream ebFile("ebDevice.svg");
-    
-    string string_to_write = eb_to_svg(eb_device);
-    
-    // Write to the file
-    ebFile << string_to_write;
-    
-    // Close the file
-    ebFile.close();
+  // Create and open a text file
+  ofstream MyFile("../eb_device.svg");
+
+  // Write to the file
+  MyFile << eb_to_svg(eb_device);
+
+  // Close the file
+  MyFile.close();
 
 }
