@@ -2,6 +2,7 @@
 #include "../include/device.h"
 #include <iostream>
 #include <string.h>
+#include <cmath>
 
 using namespace std;
 
@@ -82,14 +83,15 @@ string eb_to_svg(Device* eb_device){
     double widthTt=eb_device->width_towtruck;
 
     /*variabili utili*/
-    double Xcir; //Ycir è fissata
-    double Xplatform, Yplatform;
+    double Xcir=eb_Xcir(eb_device);
+    double Xplatform=eb_Xplatform(eb_device);
+    double Yplatform=eb_Yplatform(eb_device);
 
 
     string code="";
 
     code+="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n";
-    code+="<svg xmlns=\"http://www.w3.org/2000/svg\"  width = \"1500\" height = \"1000\">\n\n";
+    code+="<svg xmlns=\"http://www.w3.org/2000/svg\"  width = \"2000\" height = \"1500\">\n\n";
     
     /*
         carrello gru con spostamento orizzontale
@@ -118,5 +120,48 @@ string eb_to_svg(Device* eb_device){
     code+="</svg\n";
 
     return code;
-    }
+}
+
+/**
+    A function which calculate coordinate X of CiR
+**/
+double eb_Xcir(Device* eb_device){
+    double Xcir;
+
+    Xcir=eb_device->sliding + ((eb_device->width_towtruck)/2);
+
+    return Xcir;
+}
+
+/**
+    A function which calculate coordinate X of the platform
+**/
+double eb_Xplatform(Device* eb_device){
+    double Xplatform;
+    double Xcir=eb_Xcir(eb_device);
+    double angle;
+    double l = eb_device->length_shaft;
+
+    angle=eb_device->rotation * (M_PI/180);  //necessario angolo in radianti nella funzione seno
+
+    Xplatform=Xcir - l*sin(angle) - ((eb_device->width_platform)/2);
+
+    return Xplatform;
+}
+
+/**
+    A function which calculate coordinate Y of the platform
+**/
+double eb_Yplatform(Device* eb_device){
+    double Yplatform;
+    double angle;
+    double l = eb_device->length_shaft;
+
+    angle=eb_device->rotation * (M_PI/180);  //necessario angolo in radianti nella funzione seno
+
+    Yplatform=std_Ycir + l*cos(angle) - (std_platformHeight/2);
+
+    return Yplatform;
+}
+
 

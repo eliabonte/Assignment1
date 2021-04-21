@@ -28,6 +28,21 @@ bool eb_checkConstraints(double length_shaft, double width_towtruck, double widt
 **/
 string eb_to_svg(Device* eb_device);
 
+/**
+    A function which calculate coordinate X of CiR
+**/
+double eb_Xcir(Device* eb_device);
+
+/**
+    A function which calculate coordinate X of the platform
+**/
+double eb_xplatform(Device* eb_device);
+
+/**
+    A function which calculate coordinate Y of the platform
+**/
+double eb_Yplatform(Device* eb_device);
+
 
 
 #endif //DEVICE_H
