@@ -189,6 +189,81 @@ double eb_Yplatform(Device* eb_device){
 }
 
 /*
+    Sets a new length_shaft in the structure       
+    if the new length is incompabile with other measures, RETURN 1, otherwise 0
+*/
+int eb_set_lengthShaft(Device* device, double new_length_shaft){ 
+
+    if(eb_checkConstraints(new_length_shaft,device->width_towtruck,device->width_platform,device->rotation, device->sliding) == false){
+        return 1;
+    }
+
+    device->length_shaft = new_length_shaft;
+
+    return 0;
+}
+
+/*
+    Sets a new width_towtruck in the structure       
+    if the new width is incompabile with other measures, RETURN 1, otherwise 0
+*/
+int eb_set_widthTowtruck(Device* device, double new_width_towtruck){ 
+
+    if(eb_checkConstraints(device->length_shaft,new_width_towtruck,device->width_platform,device->rotation, device->sliding) == false){
+        return 1;
+    }
+
+    device->width_towtruck = new_width_towtruck;
+
+    return 0;
+}
+
+/*
+    Sets a new width_platform in the structure       
+    if the new width is incompabile with other measures, RETURN 1, otherwise 0
+*/
+int eb_set_widthTowtruck(Device* device, double new_width_platform){ 
+
+    if(eb_checkConstraints(device->length_shaft,device->width_towtruck,new_width_platform,device->rotation, device->sliding) == false){
+        return 1;
+    }
+
+    device->width_platform = new_width_platform;
+
+    return 0;
+}
+
+/*
+    Sets  rotation in the structure       
+    if the new rotation is incompabile with other measures, RETURN 1, otherwise 0
+*/
+int eb_set_widthTowtruck(Device* device, double new_rotation){ 
+
+    if(eb_checkConstraints(device->length_shaft,device->width_towtruck,device->width_platform,new_rotation, device->sliding) == false){
+        return 1;
+    }
+
+    device->rotation = new_rotation;
+
+    return 0;
+}
+
+/*
+    Sets  sliding in the structure       
+    if the new sliding is incompabile with other measures, RETURN 1, otherwise 0
+*/
+int eb_set_widthTowtruck(Device* device, double new_sliding){ 
+
+    if(eb_checkConstraints(device->length_shaft,device->width_towtruck,device->width_platform,device->sliding, new_sliding) == false){
+        return 1;
+    }
+
+    device->sliding = new_sliding;
+
+    return 0;
+}
+
+/*
     A function which write on a file svg
 */
 void eb_save_to_file(Device* eb_device){
