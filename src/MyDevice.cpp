@@ -1,11 +1,122 @@
 
 #include "../include/device.h"
-#include "iostream"
+#include <iostream>
+#include <string.h>
 
 using namespace std;
-/*
- *  Source for the not-part-of-a-library class Fraction
- *
- */
 
+/*
+    some components' features are fixed --> shaft width, towtruck height, platform height 
+*/
+    const double std_shaftWidth = 20;
+    const double std_towtruckHeight = 40;
+    const double std_platformHeight = 20;
+
+    const double std_Ycir=80;
+    const double std_radius=10;
+    const double std_YtowTruck=60;
+/*
+    centro di istantanea rotazione --> punto attorno al quale l'asta ruota, corrisponde al
+    centro della coppia rotoidale che unisce asta e carrello --> Ycir è fissa, Xcir varia in
+    funzione dello spostamento del carrello lungo x
+*/
+
+
+/**
+    A function initing a device 
+**/
+Device* eb_init(double length_shaft, double width_towtruck, double width_platform, double rotation, double sliding){
+    
+    Device* eb_device = new Device;
+
+    if(eb_checkConstraints(length_shaft,width_towtruck,width_platform,rotation,sliding)==false){
+        eb_device==NULL;
+    }
+    else{
+        eb_device -> length_shaft;
+        eb_device -> width_towtruck;
+        eb_device ->  width_platform;
+        eb_device ->  rotation;
+        eb_device ->  sliding;
+    }
+
+    return eb_device;
+}
+
+/**
+    A function checking constraints  
+**/
+bool eb_checkConstraints(double length_shaft, double width_towtruck, double width_platform, double rotation, double sliding){
+    
+    
+    
+    if(length_shaft < 0 || width_towtruck < 0 || width_platform < 0){
+        return false;
+    }
+
+    if(rotation > 80 || rotation < -80){
+        return false;
+    }
+
+    if(width_towtruck < std_shaftWidth){
+        return false;
+    }
+
+    if(width_platform < std_shaftWidth){
+        return false;
+    }
+
+    return true;
+}
+
+/**
+    A function which produce a string with svg code  
+**/
+string eb_to_svg(Device* eb_device){
+
+    /*parametri device*/
+    double sliding=eb_device->sliding;
+    double length=eb_device->length_shaft;
+    double angle=eb_device->rotation; 
+    double widthPla=eb_device->width_platform;
+    double widthTt=eb_device->width_towtruck;
+
+    /*variabili utili*/
+    double Xcir; //Ycir è fissata
+    double Xplatform, Yplatform;
+
+
+    string code="";
+
+    code+="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n";
+    code+="<svg xmlns=\"http://www.w3.org/2000/svg\"  width = \"1500\" height = \"1000\">\n\n";
+    
+    /*
+        carrello gru con spostamento orizzontale
+    */
+    code+="<g>\n";
+    code+="<rect x = \""+to_string(sliding)+"\" y = \"60\" width = \"" + to_string(widthTt) +"\" height = \"40\" stroke = \"black\" stroke-width = \"3\" fill = \"yellow\"/>\n";
+    code+="</g>\n";
+
+    /*
+        asta rotante, 
+        angolo positivo --> asta ruota in senso orario(verso sx)
+        angolo negativo --> asta ruota in senso antiorario(verso dx)
+    */
+    code+="<g transform  = \"rotate(\""+to_string(angle)+"\",\""+to_string(Xcir)+"\",80)\">\n";
+    code+="<rect x = \""+to_string(Xcir-std_radius)+"\" y = \"80\" width = \"20\" height = \"" + to_string(length) + "\" stroke = \"black\" stroke-width = \"3\" fill = \"orange\" />\n";
+    code+="<circle cx = \""+to_string(Xcir)+"\" cy = \"80\" r = \"10\" stroke = \"black\" stroke-width = \"3\" fill = \"white\"/>\n";
+    code+="</g>\n";
+
+    /*
+        piattaforma
+    */
+    code+="<g>\n";
+    code+="<rect x = \""+to_string(Xplatform)+"\" y = \""+to_string(Yplatform)+"\" width = \""+to_string(widthPla)+"\" height = \"20\"  stroke = \"black\" stroke-width = \"3\" fill = \"black\" />\n";
+    code+="</g>\n";
+
+    code+="</svg\n";
+
+    return code;
+    }
 
