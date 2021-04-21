@@ -37,7 +37,7 @@ Device* eb_init(double length_shaft, double width_towtruck, double width_platfor
         eb_device -> length_shaft;
         eb_device -> width_towtruck;
         eb_device ->  width_platform;
-        eb_device ->  rotation;
+        eb_device ->  rotation;  //angolo di rotazione è rispetto all'asse y, rotazione in senso orario se angolo positivo
         eb_device ->  sliding;
     }
 
@@ -45,20 +45,19 @@ Device* eb_init(double length_shaft, double width_towtruck, double width_platfor
 }
 
 /**
-    A function checking constraints  
+    A function checking mechanicalconstraints  
 **/
 bool eb_checkConstraints(double length_shaft, double width_towtruck, double width_platform, double rotation, double sliding){
     
-    
-    
+    /*
+        vincoli meccanici di cotruzione 
+    */
     if(length_shaft < 0 || width_towtruck < 0 || width_platform < 0){
         return false;
     }
-
-    if(rotation > 80 || rotation < -80){
+    if(rotation > 80 || rotation < -80){      //angoli max = +- 80 --> limite "fisico" max
         return false;
     }
-
     if(width_towtruck < std_shaftWidth){
         return false;
     }
@@ -66,6 +65,23 @@ bool eb_checkConstraints(double length_shaft, double width_towtruck, double widt
     if(width_platform < std_shaftWidth){
         return false;
     }
+    return true;
+} 
+
+/**
+    A function checking costraints in relation to the svg draw
+**/
+bool eb_drawConstraints(Device* eb_device){
+
+    if(eb_Yplatform(eb_device) > 1480){   //vincolo in altezza
+        return false;
+    }
+    if((eb_Xcir(eb_device) + (eb_device->length_shaft) + (eb_device->width_platform/2)) > 2000){ //vincolo in larghezza(a dx)
+        return false;
+    }
+    if((eb_Xcir(eb_device) < (eb_device->length_shaft) + (eb_device->width_platform/2))){ //vincolo in larghezza(a sx)
+        return false;
+    }      
 
     return true;
 }
@@ -74,6 +90,10 @@ bool eb_checkConstraints(double length_shaft, double width_towtruck, double widt
     A function which produce a string with svg code  
 **/
 string eb_to_svg(Device* eb_device){
+
+    if(eb_drawConstraints(eb_device)==false){
+        throw invalid_argument("you didn't respect draw contraints. Your device doesn't fit in the svg file!");
+    }
 
     /*parametri device*/
     double sliding=eb_device->sliding;
