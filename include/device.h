@@ -1,6 +1,16 @@
 #ifndef DEVICE_H
 #define DEVICE_H
 
+#include <string.h>
+#include <cmath>
+#include <fstream>
+#include <streambuf>
+#include <string>
+#include <sstream>
+
+
+using namespace std;
+
 /**
  * 
  * A struct representing the device  
@@ -31,9 +41,9 @@ bool eb_checkConstraints(double length_shaft, double width_towtruck, double widt
 bool eb_drawConstraints(Device* eb_device);
 
 
-/**
+/*
     A function which produce a string with svg code  
-**/
+*/
 string eb_to_svg(Device* eb_device);
 
 
@@ -46,13 +56,19 @@ double eb_Xcir(Device* eb_device);
 /**
     A function which calculate coordinate X of the platform
 **/
-double eb_xplatform(Device* eb_device);
+double eb_Xplatform(Device* eb_device);
 
 
 /**
     A function which calculate coordinate Y of the platform
 **/
 double eb_Yplatform(Device* eb_device);
+
+
+/*
+    A function which write on a file svg
+*/
+void eb_save_to_file(Device* eb_device);
 
 
 

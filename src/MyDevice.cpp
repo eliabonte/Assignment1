@@ -3,6 +3,10 @@
 #include <iostream>
 #include <string.h>
 #include <cmath>
+#include <fstream>
+#include <streambuf>
+#include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -184,4 +188,20 @@ double eb_Yplatform(Device* eb_device){
     return Yplatform;
 }
 
+/*
+    A function which write on a file svg
+*/
+void eb_save_to_file(Device* eb_device){
+    
+    // Create and open a text file
+    ofstream ebFile("ebDevice.svg");
+    
+    string string_to_write = eb_to_svg(eb_device);
+    
+    // Write to the file
+    ebFile << string_to_write;
+    
+    // Close the file
+    ebFile.close();
 
+}
