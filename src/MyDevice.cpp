@@ -293,41 +293,25 @@ EbDevice* eb_parse(string svg){
     
     
     //getting sliding
-    string search1 = "rect x = \"";
-    size_t find1 = svg.find(search1) + search1.size();
-    size_t find2 = svg.find("\"", find1);
-    string element1 = svg.substr(find1, find2);
-    cout<<"length: "<<element1<<endl;
-    length_shaft = stod(element1);
+    string element1 = eb_extractValue(svg,"rect x = \"","\"");
+    sliding = stod(element1);
 
 
     //getting width_towtruck
-    string search2 = "rect x = \"400\" y = \"205\" width = \"";
-    size_t find3 = svg.find(search2) + search2.size();
-    size_t find4 = svg.find("\"", find3);
-    string element2 = svg.substr(find3, find4);
+    string element2 = eb_extractValue(svg,"rect x = \"400\" y = \"205\" width = \"","\"");
     width_towtruck = stod(element2);
 
     
     //getting rotation
-    string search3 = "g transform  = \"rotate(";
-    size_t find5 = svg.find(search3) + search3.size();
-    size_t find6 = svg.find(",", find5);
-    string element3 = svg.substr(find5, find6);
+    string element3 = eb_extractValue(svg,"g transform  = \"rotate(",",");
     rotation = stod(element3);
     
     //getting length_shaft
-    string search4 = "rect x =\"460\" y = \"230\" width = \"40\" height = \"";
-    size_t find7 = svg.find(search4) + search4.size();
-    size_t find8 = svg.find("\"", find7);
-    string element4 = svg.substr(find7, find8);
+    string element4 = eb_extractValue(svg,"rect x = \"460\" y = \"230\" width = \"40\" height = \"","\"");
     length_shaft = stod(element4);
 
     //getting width_platform
-    string search5 = "rect x = \"620\" y = \"750\" width = \"";
-    size_t find9 = svg.find(search5) + search5.size();
-    size_t find10= svg.find("\"", find9);
-    string element5 = svg.substr(find9, find10);
+    string element5 = eb_extractValue(svg,"rect x = \"620\" y = \"750\" width = \"","\"");
     width_platform = stod(element5);
 
 
@@ -337,6 +321,17 @@ EbDevice* eb_parse(string svg){
 
     return device;
 
+}
+
+/*
+    function which extract a piece of a string
+    function needed in eb_parse
+*/
+string eb_extractValue(string svg, string startingValue, string endingValue){
+    size_t find1 = svg.find(startingValue) + startingValue.size();
+    size_t find2= svg.find(endingValue, find1);
+    string element = svg.substr(find1, find2-find1);
+    return element;
 } 
 
 /*
