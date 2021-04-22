@@ -116,7 +116,7 @@ string eb_to_svg(EbDevice* eb_device){
     string code="";
 
     code+="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n";
-    code+="<svg xmlns=\"http://www.w3.org/2000/svg\"  width = \"2000\" height = \"1500\">\n\n";
+    code+="<svg xmlns=\"http://www.w3.org/2000/svg\" style=\"background-color:white\" width=\"2000\" height=\"1500\">\n\n";
     
     /*
         carrello gru con spostamento orizzontale
@@ -255,7 +255,7 @@ int eb_set_rotation(EbDevice* device, double new_rotation){
 */
 int eb_set_sliding(EbDevice* device, double new_sliding){ 
 
-    if(eb_checkConstraints(device->length_shaft,device->width_towtruck,device->width_platform,device->sliding, new_sliding) == false){
+    if(eb_checkConstraints(device->length_shaft,device->width_towtruck,device->width_platform, device->rotation, new_sliding) == false){
         return 1;
     }
 
@@ -323,9 +323,7 @@ EbDevice* eb_parse(string svg){
         cout<<"ERROR 404: mechanical constraints exceeded"<<endl;
         exit(1);
     }
-
     return device;
-
 }
 
 /*
