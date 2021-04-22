@@ -141,7 +141,7 @@ string eb_to_svg(Device* eb_device){
     code+="<rect x = \""+to_string(Xplatform)+"\" y = \""+to_string(Yplatform)+"\" width = \""+to_string(widthPla)+"\" height = \"20\"  stroke = \"black\" stroke-width = \"3\" fill = \"black\" />\n";
     code+="</g>\n\n";
 
-    code+="</svg\n";
+    code+="</svg>\n";
 
     return code;
 }
@@ -266,11 +266,11 @@ int eb_set_sliding(Device* device, double new_sliding){
 /*
     A function which write on a file svg
 */
-void eb_save_to_file(Device* eb_device){
+void eb_save_to_file(Device* eb_device, string filename){
 
    
     // Create and open a text file
-    ofstream MyFile("../eb_device.svg");
+    ofstream MyFile("../"+filename+".svg");
 
     // Write to the file
     MyFile << eb_to_svg(eb_device);
