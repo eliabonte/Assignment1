@@ -49,6 +49,18 @@ Device* eb_init(double length_shaft, double width_towtruck, double width_platfor
 }
 
 /**
+    A function which print the 5 parameters of a device 
+**/
+void eb_printParameters(Device* device){
+    cout<<"I 5 parametri principali di questo device sono: "<<endl;
+    cout<<"Length shaft: "<<device -> length_shaft<<endl;
+    cout<<"Width_towtruck: "<<device -> width_towtruck<<endl;
+    cout<<"Width_platform: "<<device -> width_platform<<endl;
+    cout<<"Angle of rotation: "<<device -> rotation<<endl;
+    cout<<"Sliding: "<<device -> sliding<<endl;
+}
+
+/**
     A function checking mechanicalconstraints  
 **/
 bool eb_checkConstraints(double length_shaft, double width_towtruck, double width_platform, double rotation, double sliding){
@@ -306,19 +318,20 @@ Device* eb_parse(string svg){
     string element2 = svg.substr(find3, find4);
     width_towtruck = stod(element2);
 
+    
     //getting rotation
     string search3 = "g transform  = \"rotate(";
     size_t find5 = svg.find(search3) + search3.size();
     size_t find6 = svg.find(",", find5);
     string element3 = svg.substr(find5, find6);
-    width_platform = stod(element3);
-
+    rotation = stod(element3);
+    
     //getting length_shaft
     string search4 = "rect x =\"460\" y = \"230\" width = \"40\" height = \"";
     size_t find7 = svg.find(search4) + search4.size();
     size_t find8 = svg.find("\"", find7);
     string element4 = svg.substr(find7, find8);
-    width_platform = stod(element4);
+    length_shaft = stod(element4);
 
     //getting width_platform
     string search5 = "rect x = \"620\" y = \"750\" width = \"";

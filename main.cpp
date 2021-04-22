@@ -21,8 +21,15 @@ int main() {
     
     eb_save_to_file(myDevice,"bella");
 
-    cout << "I read this" << endl;
-    cout << eb_read_from_file("device")<< endl;
+
+    Device* deviceRead = new Device;
+    string svg=eb_read_from_file("device");
+    deviceRead=eb_parse(svg);
+    cout<<"svg letto da file ha i seguenti parametri: "<<endl;
+    cout<<deviceRead->length_shaft<<" , "<<deviceRead->width_towtruck<<" , "<<deviceRead->width_platform<<" , "<<deviceRead->rotation<<" , "<<deviceRead->sliding<<endl;
+    
+
+
 
 
     return 0;
