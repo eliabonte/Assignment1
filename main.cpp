@@ -21,6 +21,9 @@ int main() {
     
     eb_save_to_file(myDevice,"bella");
 
+    cout << "I read this" << endl;
+    cout << eb_read_from_file("device")<< endl;
+
 
     return 0;
 }

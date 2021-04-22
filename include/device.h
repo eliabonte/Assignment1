@@ -101,9 +101,14 @@ double eb_Yplatform(Device* eb_device);
 */
 void eb_save_to_file(Device* eb_device, string filename);
 
-
+/*
+    function, which creates a struct from a SVG textual representation
+*/
 Device* eb_parse(string svg);
 
-
+/*
+    A function which read from a file a string
+*/
+string eb_read_from_file(string filename);
 
 #endif //DEVICE_H
