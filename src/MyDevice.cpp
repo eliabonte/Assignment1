@@ -80,10 +80,10 @@ bool eb_drawConstraints(EbDevice* eb_device){
     if(eb_Yplatform(eb_device) > 1480){   //vincolo in altezza
         return false;
     }
-    if((eb_Xcir(eb_device) + (eb_device->length_shaft) + (eb_device->width_platform/2)) > 2000){ //vincolo in larghezza(a dx)
+    if((eb_Xcir(eb_device) + (eb_device->width_towtruck/2)) > 2000 || (eb_Xplatform(eb_device)+(eb_device->width_platform/2)) > 2000){ //vincolo in larghezza(a dx)
         return false;
     }
-    if((eb_Xcir(eb_device) < (eb_device->length_shaft) + (eb_device->width_platform/2))){ //vincolo in larghezza(a sx)
+    if((eb_Xplatform(eb_device) - ((eb_device->width_platform)/2)) < 0){ //vincolo in larghezza(a sx)
         return false;
     }      
 
