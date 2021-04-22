@@ -26,9 +26,15 @@ int main() {
 
     EbDevice* myDevice = new EbDevice;
 
-    myDevice=eb_init(200,130,300,-60,100);
+    myDevice=eb_init(200,130,300,-90,100);
 
+    if(myDevice==NULL){
+        cout<<"ERROR 404: mechanical constraints exceeded"<<endl;
+        exit(1);
+    }
+    
     eb_printParameters(myDevice);
+    
     
     eb_save_to_file(myDevice,"bella");
 
@@ -38,8 +44,6 @@ int main() {
     deviceRead=eb_parse(svg);
     cout<<"svg letto da file ha i seguenti parametri: "<<endl;
     cout<<deviceRead->length_shaft<<" , "<<deviceRead->width_towtruck<<" , "<<deviceRead->width_platform<<" , "<<deviceRead->rotation<<" , "<<deviceRead->sliding<<endl;
-
-
-
+    
     return 0;
 }
