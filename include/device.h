@@ -30,6 +30,11 @@ Device* eb_init(double length_shaft, double width_towtruck, double width_platfor
 
 
 /**
+    A function which print the 5 parameters of a device 
+**/
+void eb_printParameters(Device* device);
+
+/**
     A function checking mechanical costraints  
 **/
 bool eb_checkConstraints(double length_shaft, double width_towtruck, double width_platform, double rotation, double sliding);
