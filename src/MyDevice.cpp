@@ -30,12 +30,12 @@ using namespace std;
 /**
     A function initing a device 
 **/
-Device* eb_init(double length_shaft, double width_towtruck, double width_platform, double rotation, double sliding){
+EbDevice* eb_init(double length_shaft, double width_towtruck, double width_platform, double rotation, double sliding){
     
-    Device* eb_device = new Device;
+    EbDevice* eb_device = new EbDevice;
 
     if(eb_checkConstraints(length_shaft,width_towtruck,width_platform,rotation,sliding)==false){
-         throw invalid_argument("you didn't respect mechanical contraints. Your device can't be done!");
+        throw invalid_argument("mechanical constraints error");
     }
     else{
         eb_device -> length_shaft = length_shaft;
@@ -46,18 +46,6 @@ Device* eb_init(double length_shaft, double width_towtruck, double width_platfor
     }
 
     return eb_device;
-}
-
-/**
-    A function which print the 5 parameters of a device 
-**/
-void eb_printParameters(Device* device){
-    cout<<"I 5 parametri principali di questo device sono: "<<endl;
-    cout<<"Length shaft: "<<device -> length_shaft<<endl;
-    cout<<"Width_towtruck: "<<device -> width_towtruck<<endl;
-    cout<<"Width_platform: "<<device -> width_platform<<endl;
-    cout<<"Angle of rotation: "<<device -> rotation<<endl;
-    cout<<"Sliding: "<<device -> sliding<<endl;
 }
 
 /**
@@ -87,7 +75,7 @@ bool eb_checkConstraints(double length_shaft, double width_towtruck, double widt
 /**
     A function checking costraints in relation to the svg draw
 **/
-bool eb_drawConstraints(Device* eb_device){
+bool eb_drawConstraints(EbDevice* eb_device){
 
     if(eb_Yplatform(eb_device) > 1480){   //vincolo in altezza
         return false;
@@ -105,10 +93,10 @@ bool eb_drawConstraints(Device* eb_device){
 /**
     A function which produce a string with svg code  
 **/
-string eb_to_svg(Device* eb_device){
+string eb_to_svg(EbDevice* eb_device){
 
     if(eb_drawConstraints(eb_device)==false){
-        throw invalid_argument("you didn't respect draw contraints. Your device doesn't fit in the svg file!");
+        throw invalid_argument("draw constraints error");
     }
     
     /*parametri device*/
@@ -161,7 +149,7 @@ string eb_to_svg(Device* eb_device){
 /**
     A function which calculate coordinate X of CiR
 **/
-double eb_Xcir(Device* eb_device){
+double eb_Xcir(EbDevice* eb_device){
     double Xcir;
 
     Xcir=eb_device->sliding + ((eb_device->width_towtruck)/2);
@@ -172,7 +160,7 @@ double eb_Xcir(Device* eb_device){
 /**
     A function which calculate coordinate X of the platform
 **/
-double eb_Xplatform(Device* eb_device){
+double eb_Xplatform(EbDevice* eb_device){
     double Xplatform;
     double Xcir=eb_Xcir(eb_device);
     double angle;
@@ -188,7 +176,7 @@ double eb_Xplatform(Device* eb_device){
 /**
     A function which calculate coordinate Y of the platform
 **/
-double eb_Yplatform(Device* eb_device){
+double eb_Yplatform(EbDevice* eb_device){
     double Yplatform;
     double angle;
     double l = eb_device->length_shaft;
@@ -204,7 +192,7 @@ double eb_Yplatform(Device* eb_device){
     Sets a new length_shaft in the structure       
     if the new length is incompabile with other measures, RETURN 1, otherwise 0
 */
-int eb_set_lengthShaft(Device* device, double new_length_shaft){ 
+int eb_set_lengthShaft(EbDevice* device, double new_length_shaft){ 
 
     if(eb_checkConstraints(new_length_shaft,device->width_towtruck,device->width_platform,device->rotation, device->sliding) == false){
         return 1;
@@ -219,7 +207,7 @@ int eb_set_lengthShaft(Device* device, double new_length_shaft){
     Sets a new width_towtruck in the structure       
     if the new width is incompabile with other measures, RETURN 1, otherwise 0
 */
-int eb_set_widthTowtruck(Device* device, double new_width_towtruck){ 
+int eb_set_widthTowtruck(EbDevice* device, double new_width_towtruck){ 
 
     if(eb_checkConstraints(device->length_shaft,new_width_towtruck,device->width_platform,device->rotation, device->sliding) == false){
         return 1;
@@ -234,7 +222,7 @@ int eb_set_widthTowtruck(Device* device, double new_width_towtruck){
     Sets a new width_platform in the structure       
     if the new width is incompabile with other measures, RETURN 1, otherwise 0
 */
-int eb_set_widthPlatform(Device* device, double new_width_platform){ 
+int eb_set_widthPlatform(EbDevice* device, double new_width_platform){ 
 
     if(eb_checkConstraints(device->length_shaft,device->width_towtruck,new_width_platform,device->rotation, device->sliding) == false){
         return 1;
@@ -249,7 +237,7 @@ int eb_set_widthPlatform(Device* device, double new_width_platform){
     Sets  rotation in the structure       
     if the new rotation is incompabile with other measures, RETURN 1, otherwise 0
 */
-int eb_set_rotation(Device* device, double new_rotation){ 
+int eb_set_rotation(EbDevice* device, double new_rotation){ 
 
     if(eb_checkConstraints(device->length_shaft,device->width_towtruck,device->width_platform,new_rotation, device->sliding) == false){
         return 1;
@@ -264,7 +252,7 @@ int eb_set_rotation(Device* device, double new_rotation){
     Sets  sliding in the structure       
     if the new sliding is incompabile with other measures, RETURN 1, otherwise 0
 */
-int eb_set_sliding(Device* device, double new_sliding){ 
+int eb_set_sliding(EbDevice* device, double new_sliding){ 
 
     if(eb_checkConstraints(device->length_shaft,device->width_towtruck,device->width_platform,device->sliding, new_sliding) == false){
         return 1;
@@ -278,7 +266,7 @@ int eb_set_sliding(Device* device, double new_sliding){
 /*
     A function which write on a file svg
 */
-void eb_save_to_file(Device* eb_device, string filename){
+void eb_save_to_file(EbDevice* eb_device, string filename){
 
    
     // Create and open a text file
@@ -295,7 +283,7 @@ void eb_save_to_file(Device* eb_device, string filename){
 /*
     function, which creates a struct from a SVG textual representation
 */
-Device* eb_parse(string svg){
+EbDevice* eb_parse(string svg){
     
     double length_shaft;
     double width_towtruck;
@@ -303,11 +291,13 @@ Device* eb_parse(string svg){
     double rotation;
     double sliding;
     
+    
     //getting sliding
     string search1 = "rect x = \"";
     size_t find1 = svg.find(search1) + search1.size();
     size_t find2 = svg.find("\"", find1);
     string element1 = svg.substr(find1, find2);
+    cout<<"length: "<<element1<<endl;
     length_shaft = stod(element1);
 
 
@@ -341,7 +331,7 @@ Device* eb_parse(string svg){
     width_platform = stod(element5);
 
 
-    Device* device = new Device;
+    EbDevice* device = new EbDevice;
 
     device=eb_init(length_shaft,width_towtruck,width_platform,rotation,sliding);
 
