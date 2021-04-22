@@ -102,5 +102,8 @@ double eb_Yplatform(Device* eb_device);
 void eb_save_to_file(Device* eb_device, string filename);
 
 
+Device* eb_parse(string svg);
+
+
 
 #endif //DEVICE_H
