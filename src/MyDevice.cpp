@@ -35,7 +35,7 @@ Device* eb_init(double length_shaft, double width_towtruck, double width_platfor
     Device* eb_device = new Device;
 
     if(eb_checkConstraints(length_shaft,width_towtruck,width_platform,rotation,sliding)==false){
-        eb_device==NULL;
+         throw invalid_argument("you didn't respect mechanical contraints. Your device can't be done!");
     }
     else{
         eb_device -> length_shaft = length_shaft;
