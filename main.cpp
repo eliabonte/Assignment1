@@ -26,7 +26,7 @@ int main() {
 
     EbDevice* myDevice = new EbDevice;
 
-    myDevice=eb_init(200,130,300,-60,350);
+    myDevice=eb_init(200,130,300,-60,100);
 
     eb_printParameters(myDevice);
     

@@ -35,7 +35,7 @@ EbDevice* eb_init(double length_shaft, double width_towtruck, double width_platf
     EbDevice* eb_device = new EbDevice;
 
     if(eb_checkConstraints(length_shaft,width_towtruck,width_platform,rotation,sliding)==false){
-        throw invalid_argument("mechanical constraints error");
+        return;
     }
     else{
         eb_device -> length_shaft = length_shaft;
@@ -96,7 +96,7 @@ bool eb_drawConstraints(EbDevice* eb_device){
 string eb_to_svg(EbDevice* eb_device){
 
     if(eb_drawConstraints(eb_device)==false){
-        throw invalid_argument("draw constraints error");
+        return;
     }
     
     /*parametri device*/
