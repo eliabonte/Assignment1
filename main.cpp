@@ -35,7 +35,7 @@ int main() {
     
     eb_printParameters(myDevice);
     
-    
+    /*
     eb_save_to_file(myDevice,"bella");
 
     
@@ -44,6 +44,6 @@ int main() {
     deviceRead=eb_parse(svg);
     cout<<"svg letto da file ha i seguenti parametri: "<<endl;
     cout<<deviceRead->length_shaft<<" , "<<deviceRead->width_towtruck<<" , "<<deviceRead->width_platform<<" , "<<deviceRead->rotation<<" , "<<deviceRead->sliding<<endl;
-    
+    */
     return 0;
 }
