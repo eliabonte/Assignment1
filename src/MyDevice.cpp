@@ -49,14 +49,11 @@ Device* eb_init(double length_shaft, double width_towtruck, double width_platfor
 }
 
 /**
-    A function checking mechanicalconstraints  
+    A function checking mechanical constraints  
 **/
 bool eb_checkConstraints(double length_shaft, double width_towtruck, double width_platform, double rotation, double sliding){
     
-    /*
-        vincoli meccanici di cotruzione 
-    */
-    if(length_shaft < 0 || width_towtruck < 0 || width_platform < 0){
+    if(length_shaft < 0 || width_towtruck < 0 || width_platform < 0 || sliding < 0){
         return false;
     }
     if(rotation > 80 || rotation < -80){      //angoli max = +- 80 --> limite "fisico" max
