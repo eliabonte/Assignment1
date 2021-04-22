@@ -106,6 +106,12 @@ void eb_save_to_file(EbDevice* eb_device, string filename);
 EbDevice* eb_parse(string svg);
 
 /*
+    function which extract a piece of a string
+    function needed in eb_parse
+*/
+string eb_extractValue(string svg, string startingValue, string endingValue);
+
+/*
     A function which read from a file a string
 */
 string eb_read_from_file(string filename);
