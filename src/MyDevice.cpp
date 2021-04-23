@@ -316,11 +316,12 @@ EbDevice* eb_parse(string svg){
 
     EbDevice* device = new EbDevice;
 
-    device=eb_init(length_shaft,width_towtruck,width_platform,rotation,sliding);
-    if(device==NULL){
-        cout<<"ERROR 404: mechanical constraints exceeded"<<endl;
-        exit(1);
+    if(eb_checkConstraints(length_shaft,width_towtruck,width_platform,rotation,sliding) == false){
+        return NULL;
     }
+    
+    device=eb_init(length_shaft,width_towtruck,width_platform,rotation,sliding);
+    
     return device;
 }
 

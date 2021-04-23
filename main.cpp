@@ -157,6 +157,11 @@ int main() {
     EbDevice* deviceRead = new EbDevice;
     string svg=eb_read_from_file("device");
     deviceRead=eb_parse(svg);
+    if(deviceRead==NULL){
+        cout<<errormsg<<endl;
+        exit(1);
+    }
+    
     cout<<endl<<"Parameters of the svg load from file: "<<endl;
     cout<<deviceRead->length_shaft<<" , "<<deviceRead->width_towtruck<<" , "<<deviceRead->width_platform<<" , "<<deviceRead->rotation<<" , "<<deviceRead->sliding<<endl;
     
