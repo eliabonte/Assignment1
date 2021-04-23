@@ -32,6 +32,7 @@ int main() {
     double sliding;
     string errormsg="ERROR 404: mechanical constraints exceeded";
 
+    
     cout<<"You are going to 'build' a really nice device..."<<endl<<"You must insert 5 fondamental parameters..."<<endl;
     cout<<"Length shaft: ";
     cin>>length_shaft;
@@ -57,10 +58,10 @@ int main() {
     cout<<"A file svg will be created now, tell me the name of your file: ";
     cin>>filename;
     cout<<endl<<endl;
-    eb_save_to_file(MyDevice,filename);
+    eb_save_to_file(eb_to_svg(MyDevice),filename);
     cout<<"The file has been created succesfully!!Check it in your program's folder"<<endl;
     cout<<endl;
-
+    
     char choice;
     cout<<"You can change parameters..."<<endl;
     do{
@@ -81,10 +82,10 @@ int main() {
                 cout<<endl;
                 eb_set_lengthShaft(MyDevice,new_parameter);
                 if(eb_set_lengthShaft(MyDevice,new_parameter)==1){
-                    cout<<"The new parameter doesn't respect the mechanical constraints, so there will be no changes"<<endl;
+                    cout<<"ATTENTION!The new parameter doesn't respect the mechanical constraints, so there will be no changes"<<endl;
                 }
                 else{
-                    eb_save_to_file(MyDevice,filename);
+                    eb_save_to_file(eb_to_svg(MyDevice),filename);
                     cout<<"Nice! Check if the new device is good for you!"<<endl;
                     cout<<endl;
                 }
@@ -95,10 +96,10 @@ int main() {
                 cout<<endl;
                 eb_set_widthTowtruck(MyDevice,new_parameter);
                 if(eb_set_widthTowtruck(MyDevice,new_parameter)==1){
-                    cout<<"The new parameter doesn't respect the mechanical constraints, so there will be no changes"<<endl;
+                    cout<<"ATTENTION!The new parameter doesn't respect the mechanical constraints, so there will be no changes"<<endl;
                 }
                 else{
-                    eb_save_to_file(MyDevice,filename);
+                    eb_save_to_file(eb_to_svg(MyDevice),filename);
                     cout<<"Nice! Check if the new device is good for you!"<<endl;
                     cout<<endl;
                 }
@@ -109,10 +110,10 @@ int main() {
                 cout<<endl;
                 eb_set_widthPlatform(MyDevice,new_parameter);
                 if(eb_set_widthPlatform(MyDevice,new_parameter)==1){
-                    cout<<"The new parameter doesn't respect the mechanical constraints, so there will be no changes"<<endl;
+                    cout<<"ATTENTION!The new parameter doesn't respect the mechanical constraints, so there will be no changes"<<endl;
                 }
                 else{
-                    eb_save_to_file(MyDevice,filename);
+                    eb_save_to_file(eb_to_svg(MyDevice),filename);
                     cout<<"Nice! Check if the new device is good for you!"<<endl;
                     cout<<endl;
                 }
@@ -123,11 +124,11 @@ int main() {
                 cout<<endl;
                 eb_set_rotation(MyDevice,new_parameter);
                 if(eb_set_rotation(MyDevice,new_parameter)==1){
-                    cout<<"The new parameter doesn't respect the mechanical constraints, so there will be no changes"<<endl;
+                    cout<<"ATTENTION!The new parameter doesn't respect the mechanical constraints, so there will be no changes"<<endl;
                     cout<<endl;
                 }
                 else{
-                    eb_save_to_file(MyDevice,filename);
+                    eb_save_to_file(eb_to_svg(MyDevice),filename);
                     cout<<"Nice! Check if the new device is good for you!"<<endl;
                     cout<<endl;
                 }
@@ -138,10 +139,11 @@ int main() {
                 cout<<endl;
                 eb_set_sliding(MyDevice,new_parameter);
                 if(eb_set_sliding(MyDevice,new_parameter)==1){
-                    cout<<"The new parameter doesn't respect the mechanical constraints, so there will be no changes"<<endl;
+                    cout<<"ATTENTION!The new parameter doesn't respect the mechanical constraints, so there will be no changes"<<endl;
+                    cout<<endl;
                 }
                 else{
-                    eb_save_to_file(MyDevice,filename);
+                    eb_save_to_file(eb_to_svg(MyDevice),filename);
                     cout<<"Nice! Check if the new device is good for you!"<<endl;
                     cout<<endl;
                 }
