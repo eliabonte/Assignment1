@@ -12,7 +12,7 @@
 </g>
 
 <!--asta rotante-->
-<g transform  = "rotate(-30,480,230)">
+<g transform  = "rotate(-90,480,230)">
 <rect x = "460" y = "230" width = "40" height = "600" stroke = "black" stroke-width = "3" fill = "orange" />
 <text x = "620" y = "500" fill = "black"> shaft </text>
 <line x1 = "600" y1 = "230" x2 = "600" y2 = "830"  stroke = "black" stroke-width  = "2"/>
