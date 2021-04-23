@@ -54,15 +54,19 @@ int main() {
         
     eb_printParameters(MyDevice);
     
+    bool with_measures;
     string filename;
     cout<<"A file svg will be created now, tell me the name of your file: ";
     cin>>filename;
-    cout<<endl<<endl;
-    if(eb_to_svg(MyDevice)==""){
+    cout<<endl;
+    cout<<"Do you want the drawing with the measurements? No->0; Yes->1 ";
+    cin>>with_measures;
+    cout<<endl;
+    if(eb_to_svg(MyDevice,with_measures)==""){
         cout<<"ERROR 404: draw constraints exceeded"<<endl;
         exit(1);
     }
-    eb_save_to_file(eb_to_svg(MyDevice),filename);
+    eb_save_to_file(eb_to_svg(MyDevice,with_measures),filename);
     cout<<"The file has been created succesfully!!Check it in your program's folder"<<endl;
     cout<<endl;
     
@@ -89,11 +93,13 @@ int main() {
                     cout<<"ATTENTION!The new parameter doesn't respect the mechanical constraints, so there will be no changes"<<endl;
                 }
                 else{
-                    if(eb_to_svg(MyDevice)==""){
+                    if(eb_to_svg(MyDevice,with_measures)==""){
                         cout<<"ERROR 404: draw constraints exceeded"<<endl;
                         exit(1);
                     }
-                    eb_save_to_file(eb_to_svg(MyDevice),filename);
+                    cout<<"Do you want the drawing with the measurements? No->0; Yes->1 ";
+                    cin>>with_measures;
+                    eb_save_to_file(eb_to_svg(MyDevice,with_measures),filename);
                     cout<<"Nice! Check if the new device is good for you!"<<endl;
                     cout<<endl;
                 }
@@ -107,11 +113,13 @@ int main() {
                     cout<<"ATTENTION!The new parameter doesn't respect the mechanical constraints, so there will be no changes"<<endl;
                 }
                 else{
-                    if(eb_to_svg(MyDevice)==""){
+                    if(eb_to_svg(MyDevice,with_measures)==""){
                         cout<<"ERROR 404: draw constraints exceeded"<<endl;
                         exit(1);
                     }
-                    eb_save_to_file(eb_to_svg(MyDevice),filename);
+                    cout<<"Do you want the drawing with the measurements? No->0; Yes->1 ";
+                    cin>>with_measures;
+                    eb_save_to_file(eb_to_svg(MyDevice,with_measures),filename);
                     cout<<"Nice! Check if the new device is good for you!"<<endl;
                     cout<<endl;
                 }
@@ -125,11 +133,13 @@ int main() {
                     cout<<"ATTENTION!The new parameter doesn't respect the mechanical constraints, so there will be no changes"<<endl;
                 }
                 else{
-                    if(eb_to_svg(MyDevice)==""){
+                    if(eb_to_svg(MyDevice,with_measures)==""){
                         cout<<"ERROR 404: draw constraints exceeded"<<endl;
                         exit(1);
                     }
-                    eb_save_to_file(eb_to_svg(MyDevice),filename);
+                    cout<<"Do you want the drawing with the measurements? No->0; Yes->1 ";
+                    cin>>with_measures;
+                    eb_save_to_file(eb_to_svg(MyDevice,with_measures),filename);
                     cout<<"Nice! Check if the new device is good for you!"<<endl;
                     cout<<endl;
                 }
@@ -144,11 +154,13 @@ int main() {
                     cout<<endl;
                 }
                 else{
-                    if(eb_to_svg(MyDevice)==""){
+                    if(eb_to_svg(MyDevice,with_measures)==""){
                         cout<<"ERROR 404: draw constraints exceeded"<<endl;
                         exit(1);
                     }
-                    eb_save_to_file(eb_to_svg(MyDevice),filename);
+                    cout<<"Do you want the drawing with the measurements? No->0; Yes->1 ";
+                    cin>>with_measures;
+                    eb_save_to_file(eb_to_svg(MyDevice,with_measures),filename);
                     cout<<"Nice! Check if the new device is good for you!"<<endl;
                     cout<<endl;
                 }
@@ -163,11 +175,13 @@ int main() {
                     cout<<endl;
                 }
                 else{
-                    if(eb_to_svg(MyDevice)==""){
+                    if(eb_to_svg(MyDevice,with_measures)==""){
                         cout<<"ERROR 404: draw constraints exceeded"<<endl;
                         exit(1);
                     }
-                    eb_save_to_file(eb_to_svg(MyDevice),filename);
+                    cout<<"Do you want the drawing with the measurements? No->0; Yes->1 ";
+                    cin>>with_measures;
+                    eb_save_to_file(eb_to_svg(MyDevice,with_measures),filename);
                     cout<<"Nice! Check if the new device is good for you!"<<endl;
                     cout<<endl;
                 }

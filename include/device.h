@@ -40,6 +40,30 @@ bool eb_checkConstraints(double length_shaft, double width_towtruck, double widt
 bool eb_drawConstraints(EbDevice* eb_device);
 
 
+/**
+    A function which produce a string with svg code
+    if with_measures is true the drawing will include measurements   
+**/
+string eb_to_svg(EbDevice* eb_device, bool with_measures);
+
+/**
+    A function which calculate coordinate X of CiR
+**/
+double eb_Xcir(EbDevice* eb_device);
+
+
+/**
+    A function which calculate coordinate X of the platform
+**/
+double eb_Xplatform(EbDevice* eb_device);
+
+
+/**
+    A function which calculate coordinate Y of the platform
+**/
+double eb_Yplatform(EbDevice* eb_device);
+
+
 /*
     Sets a new length_shaft in the structure       
     if the new length is incompabile with other measures, RETURN 1, otherwise 0
@@ -69,30 +93,6 @@ int eb_set_rotation(EbDevice* device, double new_rotation);
     if the new sliding is incompabile with other measures, RETURN 1, otherwise 0
 */
 int eb_set_sliding(EbDevice* device, double new_sliding);
-
-
-/*
-    A function which produce a string with svg code  
-*/
-string eb_to_svg(EbDevice* eb_device);
-
-
-/**
-    A function which calculate coordinate X of CiR
-**/
-double eb_Xcir(EbDevice* eb_device);
-
-
-/**
-    A function which calculate coordinate X of the platform
-**/
-double eb_Xplatform(EbDevice* eb_device);
-
-
-/**
-    A function which calculate coordinate Y of the platform
-**/
-double eb_Yplatform(EbDevice* eb_device);
 
 
 /*
