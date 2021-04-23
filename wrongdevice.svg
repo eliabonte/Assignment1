@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" style="background-color:white" width="2000" height="1500">
+<svg xmlns="http://www.w3.org/2000/svg" style="background-color:white" width="1500" height="1000">
 
 <g>
 <rect x = "400" y = "100" width = "160.000000" height = "40" stroke = "black" stroke-width = "3" fill = "yellow"/>

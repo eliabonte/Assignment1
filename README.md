@@ -8,7 +8,7 @@ Creare un programma C++ che produca un disegno SVG di un dispositivo meccanico. 
 ## Parte 1
 
 Dispositivo di base: carrello gru con asta rotante. Esso è costituito da un carro che si muove lungo l'asse orizzontale, un'asta che si può muovere come un pendolo e una piattaforma su cui vengono posizionati gli oggetti.
-![](device.svg)
+![](prototipo.svg)
 ### Parametri: 
 * length_shaft: lunghezza asta
 * width_towtruck: larghezza carrello

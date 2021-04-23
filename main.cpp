@@ -193,7 +193,7 @@ int main() {
     }while(choice=='1' || choice=='2' || choice=='3' || choice=='4'|| choice=='5');
 
     EbDevice* deviceRead = new EbDevice;
-    string svg=eb_read_from_file("device");
+    string svg=eb_read_from_file("deviceToRead.svg");
     deviceRead=eb_parse(svg);
     if(deviceRead==NULL){
         cout<<errormsg<<endl;

@@ -77,10 +77,10 @@ bool eb_checkConstraints(double length_shaft, double width_towtruck, double widt
 **/
 bool eb_drawConstraints(EbDevice* eb_device){
 
-    if(eb_Yplatform(eb_device) > 1480){   //vincolo in altezza
+    if(eb_Yplatform(eb_device) > 980){   //vincolo in altezza
         return false;
     }
-    if((eb_Xcir(eb_device) + (eb_device->width_towtruck/2)) > 2000 || (eb_Xplatform(eb_device)+(eb_device->width_platform/2)) > 2000){ //vincolo in larghezza(a dx)
+    if((eb_Xcir(eb_device) + (eb_device->width_towtruck/2)) > 1500 || (eb_Xplatform(eb_device)+(eb_device->width_platform/2)) > 1500){ //vincolo in larghezza(a dx)
         return false;
     }
     if((eb_Xplatform(eb_device) - ((eb_device->width_platform)/2)) < 0){ //vincolo in larghezza(a sx)
@@ -119,7 +119,7 @@ string eb_to_svg(EbDevice* eb_device, bool with_measures){
             disegno con misure
         */
         code+="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n";
-        code+="<svg xmlns=\"http://www.w3.org/2000/svg\" style=\"background-color:white\" width=\"2000\" height=\"1500\">\n\n";
+        code+="<svg xmlns=\"http://www.w3.org/2000/svg\" style=\"background-color:white\" width=\"1500\" height=\"1000\">\n\n";
         
         /*
             carrello gru con spostamento orizzontale
@@ -163,8 +163,8 @@ string eb_to_svg(EbDevice* eb_device, bool with_measures){
             code+="<line x1 = \""+to_string(sliding-80)+"\" y1 = \"120\" x2 = \""+to_string(sliding)+"\" y2 = \"120\"  stroke = \"black\" stroke-width  = \"2\"/>\n";
         }
         else{
-            code+="<text x = \""+to_string((sliding-40))+"\" y = \"20\" fill = \"black\"> sliding = "+to_string((int)sliding)+" </text>\n";
-            code+="<line x1 = \"2\" y1 = \"45\" x2 = \""+to_string(sliding+10)+"\" y2 = \"30\"  stroke = \"black\" stroke-width  = \"2\"/>\n";
+            code+="<text x = \"10\" y = \"20\" fill = \"black\"> sliding = "+to_string((int)sliding)+" </text>\n";
+            code+="<line x1 = \"2\" y1 = \"30\" x2 = \""+to_string(sliding+20)+"\" y2 = \"30\"  stroke = \"black\" stroke-width  = \"2\"/>\n";
         }
         code+="</g>\n";
 
@@ -175,13 +175,13 @@ string eb_to_svg(EbDevice* eb_device, bool with_measures){
 
 
     code+="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n";
-    code+="<svg xmlns=\"http://www.w3.org/2000/svg\" style=\"background-color:white\" width=\"2000\" height=\"1500\">\n\n";
+    code+="<svg xmlns=\"http://www.w3.org/2000/svg\" style=\"background-color:white\" width=\"1500\" height=\"1000\">\n\n";
     
     /*
         carrello gru con spostamento orizzontale
     */
     code+="<g>\n";
-    code+="<rect x = \""+to_string(sliding)+"\" y = \"100\" width = \"" + to_string(widthTt) +"\" height = \"40\" stroke = \"black\" stroke-width = \"3\" fill = \"yellow\"/>\n";
+    code+="<rect x = \""+to_string((int)sliding)+"\" y = \"100\" width = \"" + to_string(widthTt) +"\" height = \"40\" stroke = \"black\" stroke-width = \"3\" fill = \"yellow\"/>\n";
     code+="</g>\n\n";
 
     /*
@@ -190,7 +190,7 @@ string eb_to_svg(EbDevice* eb_device, bool with_measures){
         angolo negativo --> asta ruota in senso antiorario(verso dx)
     */
     code+="<g transform  = \"rotate("+to_string(angle)+","+to_string(Xcir)+",120)\">\n";
-    code+="<rect x = \""+to_string(Xcir-std_radius)+"\" y = \"120\" width = \"20\" height = \"" + to_string(length) + "\" stroke = \"black\" stroke-width = \"3\" fill = \"orange\" />\n";
+    code+="<rect x = \""+to_string((int)(Xcir-std_radius))+"\" y = \"120\" width = \"20\" height = \"" + to_string(length) + "\" stroke = \"black\" stroke-width = \"3\" fill = \"orange\" />\n";
     code+="<circle cx = \""+to_string(Xcir)+"\" cy = \"120\" r = \"10\" stroke = \"black\" stroke-width = \"3\" fill = \"white\"/>\n";
     code+="</g>\n\n";
 
@@ -198,7 +198,7 @@ string eb_to_svg(EbDevice* eb_device, bool with_measures){
         piattaforma
     */
     code+="<g>\n";
-    code+="<rect x = \""+to_string(Xplatform)+"\" y = \""+to_string(Yplatform)+"\" width = \""+to_string(widthPla)+"\" height = \"20\"  stroke = \"black\" stroke-width = \"3\" fill = \"black\" />\n";
+    code+="<rect x = \""+to_string((int)Xplatform)+"\" y = \""+to_string((int)Yplatform)+"\" width = \""+to_string(widthPla)+"\" height = \"20\"  stroke = \"black\" stroke-width = \"3\" fill = \"black\" />\n";
     code+="</g>\n\n";
 
     code+="</svg>\n";
@@ -399,7 +399,7 @@ string eb_extractValue(string svg, string startingValue, string endingValue){
     A function which read from a file a string
 */
 string eb_read_from_file(string filename){
-    ifstream t(filename+".svg");
+    ifstream t(filename);
     stringstream buffer;
     buffer << t.rdbuf();
     string svg_string = buffer.str();
