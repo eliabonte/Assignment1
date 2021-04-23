@@ -192,3 +192,29 @@ TEST_CASE("eb_save_to_file should write a string in a file","[MyDevice]"){
 
     REQUIRE(eb_read_from_file("filetest")==stringToWrite);
 }
+
+/*
+    test regarding the function eb_parse
+*/
+TEST_CASE("eb_parse should return NULL, if the measures read from file don't respect the mechanical constraints","[MyDevice]"){
+
+    string svg = eb_read_from_file("wrongdevice");
+
+    EbDevice* device = eb_parse(svg);
+
+    REQUIRE(device==NULL);
+
+}
+TEST_CASE("eb_parse should create a struct from a svg file","[MyDevice]"){
+
+    string svg = eb_read_from_file("device");
+
+    EbDevice* device = eb_parse(svg);
+
+    REQUIRE(device!=NULL);
+    REQUIRE(device->length_shaft==600);
+    REQUIRE(device->width_towtruck==160);
+    REQUIRE(device->width_platform==320);
+    REQUIRE(device->rotation==-30);
+    REQUIRE(device->sliding==400);
+}
