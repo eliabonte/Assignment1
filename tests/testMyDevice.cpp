@@ -187,13 +187,13 @@ TEST_CASE("eb_to_svg should an empty string if draw constraints are not respecte
 
     EbDevice* device = eb_init(1500,160,1000,80,10);
 
-    REQUIRE(eb_to_svg(device)=="");
+    REQUIRE(eb_to_svg(device,false)=="");
 }
 
 /*
-    test regarding the function eb_save_to_file
+    test regarding the function eb_save_to_file and eb_read_from_file
 */
-TEST_CASE("eb_save_to_file should write a string in a file","[MyDevice]"){
+TEST_CASE("eb_save_to_file should write a string in a file, eb_read_from_file shoul read a string from a file","[MyDevice]"){
 
     string stringToWrite="ciao";
     

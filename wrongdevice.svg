@@ -1,39 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-
 <svg xmlns="http://www.w3.org/2000/svg" style="background-color:white" width="2000" height="1500">
 
-
-
-<!--carrello gru con spostamento orizzontale-->
 <g>
-<rect x = "400" y = "205" width = "160" height = "50" stroke = "black" stroke-width = "3" fill = "yellow" />
-<text x = "450" y = "170" fill = "black"> tow truck </text>
-<line x1 = "400" y1 = "180" x2 = "560" y2 = "180"  stroke = "black" stroke-width  = "2"/>
+<rect x = "400" y = "100" width = "160.000000" height = "40" stroke = "black" stroke-width = "3" fill = "yellow"/>
+<text x = "400.000000" y = "65" fill = "black"> width_towtruck = 400 </text>
+<line x1 = "400.000000" y1 = "75" x2 = "560.000000" y2 = "75"  stroke = "black" stroke-width  = "2"/>
 </g>
 
-<!--asta rotante-->
-<g transform  = "rotate(-90,480,230)">
-<rect x = "460" y = "230" width = "40" height = "600" stroke = "black" stroke-width = "3" fill = "orange" />
-<text x = "620" y = "500" fill = "black"> shaft </text>
-<line x1 = "600" y1 = "230" x2 = "600" y2 = "830"  stroke = "black" stroke-width  = "2"/>
-<text x = "390" y = "490" fill = "black"> rotation </text>
-<line x1 = "370" y1 = "500" x2 = "460" y2 = "500"  stroke = "black" stroke-width  = "2"/>
-<circle cx = "480" cy = "230" r = "10" stroke = "black" stroke-width = "3" fill = "white"/>
-<circle cx = "480" cy = "830" r = "10" stroke = "black" stroke-width = "3" fill = "white"/>
+<g transform  = "rotate(-90.000000,480.000000,120)">
+<rect x = "470" y = "120" width = "20" height = "600.000000" stroke = "black" stroke-width = "3" fill = "orange" />
+<text x = "600.000000" y = "420.000000" fill = "black"> length_shaft = 600 </text>
+<line x1 = "590" y1 = "120" x2 = "590.000000" y2 = "720.000000"  stroke = "black" stroke-width  = "2"/>
+<text x = "390.000000" y = "410.000000" fill = "black"> angle=-30 </text>
+<line x1 = "400.000000" y1 = "420.000000" x2 = "470.000000" y2 = "420.000000"  stroke = "black" stroke-width  = "2"/>
+<circle cx = "480.000000" cy = "120" r = "10" stroke = "black" stroke-width = "3" fill = "white"/>
 </g>
 
-<!--piattaforma-->
 <g>
-<rect x = "620" y = "750" width = "320" height = "20"  stroke = "black" stroke-width = "3" fill = "black" />
-<text x = "750" y = "820" fill = "black"> platform </text>
-<line x1 = "620" y1 = "790" x2 = "940" y2 = "790"  stroke = "black" stroke-width  = "2"/>
+<rect x = "620" y = "629" width = "320.000000" height = "20"  stroke = "black" stroke-width = "3" fill = "black" />
+<text x = "700.000000" y = "689.615242" fill = "black"> width_platform = 320 </text>
+<line x1 = "620.000000" y1 = "669.615242" x2 = "940.000000" y2 = "669.615242"  stroke = "black" stroke-width  = "2"/>
 </g>
 
-<!--quota spostamento carrello-->
 <g>
-<text x = "330" y = "220" fill = "black"> sliding </text>
-<line x1 = "300" y1 = "230" x2 = "400" y2 = "230"  stroke = "black" stroke-width  = "2"/>
+<text x = "300.000000" y = "110" fill = "black"> sliding = 400 </text>
+<line x1 = "320.000000" y1 = "120" x2 = "400.000000" y2 = "120"  stroke = "black" stroke-width  = "2"/>
 </g>
-
-
 </svg>
