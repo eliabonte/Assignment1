@@ -96,8 +96,7 @@ bool eb_drawConstraints(EbDevice* eb_device){
 string eb_to_svg(EbDevice* eb_device){
 
     if(eb_drawConstraints(eb_device)==false){
-        cout<<"ERROR 404: draw constraints exceeded"<<endl;
-        exit(1);
+        return "";
     }
     
     /*parametri device*/

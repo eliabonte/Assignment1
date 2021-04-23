@@ -180,6 +180,15 @@ TEST_CASE("eb_set_sliding should replace the new parameter, when the function re
         REQUIRE(device->sliding==100);
     } 
 }
+/*
+    test regarding the function eb_to_svg
+*/
+TEST_CASE("eb_to_svg should an empty string if draw constraints are not respected","[MyDevice]"){
+
+    EbDevice* device = eb_init(1500,160,1000,80,10);
+
+    REQUIRE(eb_to_svg(device)=="");
+}
 
 /*
     test regarding the function eb_save_to_file
