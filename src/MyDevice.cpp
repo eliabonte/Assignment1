@@ -56,6 +56,9 @@ bool eb_checkConstraints(double length_shaft, double width_towtruck, double widt
     if(length_shaft < 0 || width_towtruck < 0 || width_platform < 0 || sliding < 0){
         return false;
     }
+    if(length_shaft<((std_platformHeight/2)+(std_towtruckHeight/2))){   
+        return false;
+    }
     if(rotation > 80 || rotation < -80){      //angoli max = +- 80 --> limite "fisico" max
         return false;
     }
@@ -264,18 +267,16 @@ int eb_set_sliding(EbDevice* device, double new_sliding){
 /*
     A function which write on a file svg
 */
-void eb_save_to_file(EbDevice* eb_device, string filename){
-
+void eb_save_to_file(string stringToWrite, string filename){
    
     // Create and open a text file
     ofstream MyFile("../"+filename+".svg");
 
     // Write to the file
-    MyFile << eb_to_svg(eb_device);
+    MyFile << stringToWrite;
 
     // Close the file
     MyFile.close();
-
 }
 
 /*

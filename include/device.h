@@ -98,7 +98,7 @@ double eb_Yplatform(EbDevice* eb_device);
 /*
     A function which write on a file svg
 */
-void eb_save_to_file(EbDevice* eb_device, string filename);
+void eb_save_to_file(string stringToWrite, string filename);
 
 /*
     function, which creates a struct from a SVG textual representation
