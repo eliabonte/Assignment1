@@ -30,12 +30,12 @@ using namespace std;
 /**
     A function initing a device 
 **/
-Device* eb_init(double length_shaft, double width_towtruck, double width_platform, double rotation, double sliding){
+EbDevice* eb_init(double length_shaft, double width_towtruck, double width_platform, double rotation, double sliding){
     
-    Device* eb_device = new Device;
+    EbDevice* eb_device = new EbDevice;
 
     if(eb_checkConstraints(length_shaft,width_towtruck,width_platform,rotation,sliding)==false){
-         throw invalid_argument("you didn't respect mechanical contraints. Your device can't be done!");
+        return NULL;
     }
     else{
         eb_device -> length_shaft = length_shaft;
@@ -72,15 +72,15 @@ bool eb_checkConstraints(double length_shaft, double width_towtruck, double widt
 /**
     A function checking costraints in relation to the svg draw
 **/
-bool eb_drawConstraints(Device* eb_device){
+bool eb_drawConstraints(EbDevice* eb_device){
 
     if(eb_Yplatform(eb_device) > 1480){   //vincolo in altezza
         return false;
     }
-    if((eb_Xcir(eb_device) + (eb_device->length_shaft) + (eb_device->width_platform/2)) > 2000){ //vincolo in larghezza(a dx)
+    if((eb_Xcir(eb_device) + (eb_device->width_towtruck/2)) > 2000 || (eb_Xplatform(eb_device)+(eb_device->width_platform/2)) > 2000){ //vincolo in larghezza(a dx)
         return false;
     }
-    if((eb_Xcir(eb_device) < (eb_device->length_shaft) + (eb_device->width_platform/2))){ //vincolo in larghezza(a sx)
+    if((eb_Xplatform(eb_device) - ((eb_device->width_platform)/2)) < 0){ //vincolo in larghezza(a sx)
         return false;
     }      
 
@@ -90,10 +90,11 @@ bool eb_drawConstraints(Device* eb_device){
 /**
     A function which produce a string with svg code  
 **/
-string eb_to_svg(Device* eb_device){
+string eb_to_svg(EbDevice* eb_device){
 
     if(eb_drawConstraints(eb_device)==false){
-        throw invalid_argument("you didn't respect draw contraints. Your device doesn't fit in the svg file!");
+        cout<<"ERROR 404: draw constraints exceeded"<<endl;
+        exit(1);
     }
     
     /*parametri device*/
@@ -112,7 +113,7 @@ string eb_to_svg(Device* eb_device){
     string code="";
 
     code+="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n";
-    code+="<svg xmlns=\"http://www.w3.org/2000/svg\"  width = \"2000\" height = \"1500\">\n\n";
+    code+="<svg xmlns=\"http://www.w3.org/2000/svg\" style=\"background-color:white\" width=\"2000\" height=\"1500\">\n\n";
     
     /*
         carrello gru con spostamento orizzontale
@@ -146,7 +147,7 @@ string eb_to_svg(Device* eb_device){
 /**
     A function which calculate coordinate X of CiR
 **/
-double eb_Xcir(Device* eb_device){
+double eb_Xcir(EbDevice* eb_device){
     double Xcir;
 
     Xcir=eb_device->sliding + ((eb_device->width_towtruck)/2);
@@ -157,7 +158,7 @@ double eb_Xcir(Device* eb_device){
 /**
     A function which calculate coordinate X of the platform
 **/
-double eb_Xplatform(Device* eb_device){
+double eb_Xplatform(EbDevice* eb_device){
     double Xplatform;
     double Xcir=eb_Xcir(eb_device);
     double angle;
@@ -173,7 +174,7 @@ double eb_Xplatform(Device* eb_device){
 /**
     A function which calculate coordinate Y of the platform
 **/
-double eb_Yplatform(Device* eb_device){
+double eb_Yplatform(EbDevice* eb_device){
     double Yplatform;
     double angle;
     double l = eb_device->length_shaft;
@@ -189,7 +190,7 @@ double eb_Yplatform(Device* eb_device){
     Sets a new length_shaft in the structure       
     if the new length is incompabile with other measures, RETURN 1, otherwise 0
 */
-int eb_set_lengthShaft(Device* device, double new_length_shaft){ 
+int eb_set_lengthShaft(EbDevice* device, double new_length_shaft){ 
 
     if(eb_checkConstraints(new_length_shaft,device->width_towtruck,device->width_platform,device->rotation, device->sliding) == false){
         return 1;
@@ -204,7 +205,7 @@ int eb_set_lengthShaft(Device* device, double new_length_shaft){
     Sets a new width_towtruck in the structure       
     if the new width is incompabile with other measures, RETURN 1, otherwise 0
 */
-int eb_set_widthTowtruck(Device* device, double new_width_towtruck){ 
+int eb_set_widthTowtruck(EbDevice* device, double new_width_towtruck){ 
 
     if(eb_checkConstraints(device->length_shaft,new_width_towtruck,device->width_platform,device->rotation, device->sliding) == false){
         return 1;
@@ -219,7 +220,7 @@ int eb_set_widthTowtruck(Device* device, double new_width_towtruck){
     Sets a new width_platform in the structure       
     if the new width is incompabile with other measures, RETURN 1, otherwise 0
 */
-int eb_set_widthPlatform(Device* device, double new_width_platform){ 
+int eb_set_widthPlatform(EbDevice* device, double new_width_platform){ 
 
     if(eb_checkConstraints(device->length_shaft,device->width_towtruck,new_width_platform,device->rotation, device->sliding) == false){
         return 1;
@@ -234,7 +235,7 @@ int eb_set_widthPlatform(Device* device, double new_width_platform){
     Sets  rotation in the structure       
     if the new rotation is incompabile with other measures, RETURN 1, otherwise 0
 */
-int eb_set_rotation(Device* device, double new_rotation){ 
+int eb_set_rotation(EbDevice* device, double new_rotation){ 
 
     if(eb_checkConstraints(device->length_shaft,device->width_towtruck,device->width_platform,new_rotation, device->sliding) == false){
         return 1;
@@ -249,9 +250,9 @@ int eb_set_rotation(Device* device, double new_rotation){
     Sets  sliding in the structure       
     if the new sliding is incompabile with other measures, RETURN 1, otherwise 0
 */
-int eb_set_sliding(Device* device, double new_sliding){ 
+int eb_set_sliding(EbDevice* device, double new_sliding){ 
 
-    if(eb_checkConstraints(device->length_shaft,device->width_towtruck,device->width_platform,device->sliding, new_sliding) == false){
+    if(eb_checkConstraints(device->length_shaft,device->width_towtruck,device->width_platform, device->rotation, new_sliding) == false){
         return 1;
     }
 
@@ -263,7 +264,7 @@ int eb_set_sliding(Device* device, double new_sliding){
 /*
     A function which write on a file svg
 */
-void eb_save_to_file(Device* eb_device, string filename){
+void eb_save_to_file(EbDevice* eb_device, string filename){
 
    
     // Create and open a text file
@@ -275,4 +276,72 @@ void eb_save_to_file(Device* eb_device, string filename){
     // Close the file
     MyFile.close();
 
+}
+
+/*
+    function, which creates a struct from a SVG textual representation
+*/
+EbDevice* eb_parse(string svg){
+    
+    double length_shaft;
+    double width_towtruck;
+    double width_platform;
+    double rotation;
+    double sliding;
+    
+    
+    //getting sliding
+    string element1 = eb_extractValue(svg,"rect x = \"","\"");
+    sliding = stod(element1);
+
+
+    //getting width_towtruck
+    string element2 = eb_extractValue(svg,"rect x = \"400\" y = \"205\" width = \"","\"");
+    width_towtruck = stod(element2);
+
+    
+    //getting rotation
+    string element3 = eb_extractValue(svg,"g transform  = \"rotate(",",");
+    rotation = stod(element3);
+    
+    //getting length_shaft
+    string element4 = eb_extractValue(svg,"rect x = \"460\" y = \"230\" width = \"40\" height = \"","\"");
+    length_shaft = stod(element4);
+
+    //getting width_platform
+    string element5 = eb_extractValue(svg,"rect x = \"620\" y = \"750\" width = \"","\"");
+    width_platform = stod(element5);
+
+
+    EbDevice* device = new EbDevice;
+
+    device=eb_init(length_shaft,width_towtruck,width_platform,rotation,sliding);
+    if(device==NULL){
+        cout<<"ERROR 404: mechanical constraints exceeded"<<endl;
+        exit(1);
+    }
+    return device;
+}
+
+/*
+    function which extract a piece of a string
+    function needed in eb_parse
+*/
+string eb_extractValue(string svg, string startingValue, string endingValue){
+    size_t find1 = svg.find(startingValue) + startingValue.size();
+    size_t find2= svg.find(endingValue, find1);
+    string element = svg.substr(find1, find2-find1);
+    return element;
+} 
+
+/*
+    A function which read from a file a string
+*/
+string eb_read_from_file(string filename){
+    ifstream t("../"+filename+".svg");
+    stringstream buffer;
+    buffer << t.rdbuf();
+    string svg_string = buffer.str();
+
+    return svg_string;
 }
