@@ -183,23 +183,39 @@ TEST_CASE("eb_set_sliding should replace the new parameter, when the function re
 /*
     test regarding the function eb_to_svg
 */
-TEST_CASE("eb_to_svg should an empty string if draw constraints are not respected","[MyDevice]"){
+TEST_CASE("eb_to_svg should return an empty string if draw constraints are not respected","[MyDevice]"){
 
     EbDevice* device = eb_init(1500,160,1000,80,10);
 
-    REQUIRE(eb_to_svg(device)=="");
+    REQUIRE(eb_to_svg(device,false)=="");
+}
+TEST_CASE("eb_to_svg should return a string with the right code","[MyDevice]"){
+
+    EbDevice* device = eb_init(600,180,350,-25,300);
+    string check = eb_read_from_file("prototipo.svg");
+
+    REQUIRE(eb_to_svg(device,true)==check);
 }
 
 /*
-    test regarding the function eb_save_to_file
+    test regarding the function eb_save_to_file 
 */
 TEST_CASE("eb_save_to_file should write a string in a file","[MyDevice]"){
 
     string stringToWrite="ciao";
     
-    eb_save_to_file(stringToWrite,"filetest");
+    eb_save_to_file(stringToWrite,"filetestsave");
 
-    REQUIRE(eb_read_from_file("filetest")==stringToWrite);
+    REQUIRE(eb_read_from_file("filetestsave.svg")==stringToWrite);
+}
+/*
+    testing eb_read_from_file
+*/
+TEST_CASE("eb_read_from_file shoul read a string from a file","[MyDevice]"){
+
+    string stringToRead="ciao";
+
+    REQUIRE(eb_read_from_file("filetestread.txt")==stringToRead);
 }
 
 /*
@@ -207,7 +223,7 @@ TEST_CASE("eb_save_to_file should write a string in a file","[MyDevice]"){
 */
 TEST_CASE("eb_parse should return NULL, if the measures read from file don't respect the mechanical constraints","[MyDevice]"){
 
-    string svg = eb_read_from_file("wrongdevice");
+    string svg = eb_read_from_file("wrongdevice.svg");
 
     EbDevice* device = eb_parse(svg);
 
@@ -216,7 +232,7 @@ TEST_CASE("eb_parse should return NULL, if the measures read from file don't res
 }
 TEST_CASE("eb_parse should create a struct from a svg file","[MyDevice]"){
 
-    string svg = eb_read_from_file("device");
+    string svg = eb_read_from_file("deviceToRead.svg");
 
     EbDevice* device = eb_parse(svg);
 

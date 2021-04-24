@@ -17,9 +17,9 @@ using namespace std;
     const double std_towtruckHeight = 40;
     const double std_platformHeight = 20;
 
-    const double std_Ycir=80;
+    const double std_Ycir=120;
     const double std_radius=10;
-    const double std_YtowTruck=60;
+    const double std_YtowTruck=100;
 /*
     centro di istantanea rotazione --> punto attorno al quale l'asta ruota, corrisponde al
     centro della coppia rotoidale che unisce asta e carrello --> Ycir è fissa, Xcir varia in
@@ -77,10 +77,10 @@ bool eb_checkConstraints(double length_shaft, double width_towtruck, double widt
 **/
 bool eb_drawConstraints(EbDevice* eb_device){
 
-    if(eb_Yplatform(eb_device) > 1480){   //vincolo in altezza
+    if(eb_Yplatform(eb_device) > 980){   //vincolo in altezza
         return false;
     }
-    if((eb_Xcir(eb_device) + (eb_device->width_towtruck/2)) > 2000 || (eb_Xplatform(eb_device)+(eb_device->width_platform/2)) > 2000){ //vincolo in larghezza(a dx)
+    if((eb_Xcir(eb_device) + (eb_device->width_towtruck/2)) > 1500 || (eb_Xplatform(eb_device)+(eb_device->width_platform/2)) > 1500){ //vincolo in larghezza(a dx)
         return false;
     }
     if((eb_Xplatform(eb_device) - ((eb_device->width_platform)/2)) < 0){ //vincolo in larghezza(a sx)
@@ -91,9 +91,10 @@ bool eb_drawConstraints(EbDevice* eb_device){
 }
 
 /**
-    A function which produce a string with svg code  
+    A function which produce a string with svg code
+    if with_measures is true the drawing will include measurements   
 **/
-string eb_to_svg(EbDevice* eb_device){
+string eb_to_svg(EbDevice* eb_device, bool with_measures){
 
     if(eb_drawConstraints(eb_device)==false){
         return "";
@@ -111,17 +112,76 @@ string eb_to_svg(EbDevice* eb_device){
     double Xplatform=eb_Xplatform(eb_device);
     double Yplatform=eb_Yplatform(eb_device);
 
-
     string code="";
 
+    if(with_measures==true){
+        /*
+            disegno con misure
+        */
+        code+="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n";
+        code+="<svg xmlns=\"http://www.w3.org/2000/svg\" style=\"background-color:white\" width=\"1500\" height=\"1000\">\n\n";
+        
+        /*
+            carrello gru con spostamento orizzontale
+        */
+        code+="<g>\n";
+        code+="<rect x = \""+to_string((int)sliding)+"\" y = \"100\" width = \"" + to_string(widthTt) +"\" height = \"40\" stroke = \"black\" stroke-width = \"3\" fill = \"yellow\"/>\n";
+        code+="<text x = \""+to_string(sliding)+"\" y = \"65\" fill = \"black\"> width_towtruck = "+to_string((int)sliding)+" </text>\n";
+        code+="<line x1 = \""+to_string(sliding)+"\" y1 = \"75\" x2 = \""+to_string(sliding+widthTt)+"\" y2 = \"75\"  stroke = \"black\" stroke-width  = \"2\"/>\n";
+
+        code+="</g>\n\n";
+
+        /*
+            asta rotante, 
+            angolo positivo --> asta ruota in senso orario(verso sx)
+            angolo negativo --> asta ruota in senso antiorario(verso dx)
+        */
+        code+="<g transform  = \"rotate("+to_string(angle)+","+to_string(Xcir)+",120)\">\n";
+        code+="<rect x = \""+to_string((int)(Xcir-std_radius))+"\" y = \"120\" width = \"20\" height = \"" + to_string(length) + "\" stroke = \"black\" stroke-width = \"3\" fill = \"orange\" />\n";
+        code+="<text x = \""+to_string(Xcir+(widthTt/2)+40)+"\" y = \""+to_string(std_Ycir+(length/2))+"\" fill = \"black\"> length_shaft = "+to_string((int)length)+" </text>\n";
+        code+="<line x1 = \""+to_string((int)(Xcir+(widthTt/2)+30))+"\" y1 = \"120\" x2 = \""+to_string((Xcir+(widthTt/2)+30))+"\" y2 = \""+to_string((120+length))+"\"  stroke = \"black\" stroke-width  = \"2\"/>\n";
+        code+="<text x = \""+to_string(Xcir-std_radius-80)+"\" y = \""+to_string(std_Ycir-10+(length/2))+"\" fill = \"black\"> angle="+to_string((int)angle)+" </text>\n";
+        code+="<line x1 = \""+to_string(Xcir-std_radius-70)+"\" y1 = \""+to_string(std_Ycir+(length/2))+"\" x2 = \""+to_string(Xcir-std_radius)+"\" y2 = \""+to_string(std_Ycir+(length/2))+"\"  stroke = \"black\" stroke-width  = \"2\"/>\n";
+        code+="<circle cx = \""+to_string(Xcir)+"\" cy = \"120\" r = \"10\" stroke = \"black\" stroke-width = \"3\" fill = \"white\"/>\n";
+        code+="</g>\n\n";
+
+        /*
+            piattaforma
+        */
+        code+="<g>\n";
+        code+="<rect x = \""+to_string((int)Xplatform)+"\" y = \""+to_string((int)Yplatform)+"\" width = \""+to_string(widthPla)+"\" height = \"20\"  stroke = \"black\" stroke-width = \"3\" fill = \"black\" />\n";
+        code+="<text x = \""+to_string(Xplatform+(widthPla/4))+"\" y = \""+to_string(Yplatform+std_platformHeight+40)+"\" fill = \"black\"> width_platform = "+to_string((int)widthPla)+" </text>\n";
+        code+="<line x1 = \""+to_string(Xplatform)+"\" y1 = \""+to_string(Yplatform+std_platformHeight+20)+"\" x2 = \""+to_string(Xplatform+widthPla)+"\" y2 = \""+to_string(Yplatform+std_platformHeight+20)+"\"  stroke = \"black\" stroke-width  = \"2\"/>\n";
+        code+="</g>\n\n";
+
+        /*
+            quota spostamento carrello
+        */    
+        code+="<g>\n";
+        if(sliding>100){
+            code+="<text x = \""+to_string(sliding-100)+"\" y = \"110\" fill = \"black\"> sliding = "+to_string((int)sliding)+" </text>\n";
+            code+="<line x1 = \""+to_string(sliding-80)+"\" y1 = \"120\" x2 = \""+to_string(sliding)+"\" y2 = \"120\"  stroke = \"black\" stroke-width  = \"2\"/>\n";
+        }
+        else{
+            code+="<text x = \"10\" y = \"20\" fill = \"black\"> sliding = "+to_string((int)sliding)+" </text>\n";
+            code+="<line x1 = \"2\" y1 = \"30\" x2 = \""+to_string(sliding+20)+"\" y2 = \"30\"  stroke = \"black\" stroke-width  = \"2\"/>\n";
+        }
+        code+="</g>\n";
+
+        code+="</svg>\n";
+
+        return code;
+    }
+
+
     code+="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n";
-    code+="<svg xmlns=\"http://www.w3.org/2000/svg\" style=\"background-color:white\" width=\"2000\" height=\"1500\">\n\n";
+    code+="<svg xmlns=\"http://www.w3.org/2000/svg\" style=\"background-color:white\" width=\"1500\" height=\"1000\">\n\n";
     
     /*
         carrello gru con spostamento orizzontale
     */
     code+="<g>\n";
-    code+="<rect x = \""+to_string(sliding)+"\" y = \"60\" width = \"" + to_string(widthTt) +"\" height = \"40\" stroke = \"black\" stroke-width = \"3\" fill = \"yellow\"/>\n";
+    code+="<rect x = \""+to_string((int)sliding)+"\" y = \"100\" width = \"" + to_string(widthTt) +"\" height = \"40\" stroke = \"black\" stroke-width = \"3\" fill = \"yellow\"/>\n";
     code+="</g>\n\n";
 
     /*
@@ -129,16 +189,16 @@ string eb_to_svg(EbDevice* eb_device){
         angolo positivo --> asta ruota in senso orario(verso sx)
         angolo negativo --> asta ruota in senso antiorario(verso dx)
     */
-    code+="<g transform  = \"rotate("+to_string(angle)+","+to_string(Xcir)+",80)\">\n";
-    code+="<rect x = \""+to_string(Xcir-std_radius)+"\" y = \"80\" width = \"20\" height = \"" + to_string(length) + "\" stroke = \"black\" stroke-width = \"3\" fill = \"orange\" />\n";
-    code+="<circle cx = \""+to_string(Xcir)+"\" cy = \"80\" r = \"10\" stroke = \"black\" stroke-width = \"3\" fill = \"white\"/>\n";
+    code+="<g transform  = \"rotate("+to_string(angle)+","+to_string(Xcir)+",120)\">\n";
+    code+="<rect x = \""+to_string((int)(Xcir-std_radius))+"\" y = \"120\" width = \"20\" height = \"" + to_string(length) + "\" stroke = \"black\" stroke-width = \"3\" fill = \"orange\" />\n";
+    code+="<circle cx = \""+to_string(Xcir)+"\" cy = \"120\" r = \"10\" stroke = \"black\" stroke-width = \"3\" fill = \"white\"/>\n";
     code+="</g>\n\n";
 
     /*
         piattaforma
     */
     code+="<g>\n";
-    code+="<rect x = \""+to_string(Xplatform)+"\" y = \""+to_string(Yplatform)+"\" width = \""+to_string(widthPla)+"\" height = \"20\"  stroke = \"black\" stroke-width = \"3\" fill = \"black\" />\n";
+    code+="<rect x = \""+to_string((int)Xplatform)+"\" y = \""+to_string((int)Yplatform)+"\" width = \""+to_string(widthPla)+"\" height = \"20\"  stroke = \"black\" stroke-width = \"3\" fill = \"black\" />\n";
     code+="</g>\n\n";
 
     code+="</svg>\n";
@@ -269,7 +329,7 @@ int eb_set_sliding(EbDevice* device, double new_sliding){
 void eb_save_to_file(string stringToWrite, string filename){
    
     // Create and open a text file
-    ofstream MyFile("../"+filename+".svg");
+    ofstream MyFile(filename+".svg");
 
     // Write to the file
     MyFile << stringToWrite;
@@ -296,7 +356,7 @@ EbDevice* eb_parse(string svg){
 
 
     //getting width_towtruck
-    string element2 = eb_extractValue(svg,"rect x = \"400\" y = \"205\" width = \"","\"");
+    string element2 = eb_extractValue(svg,"rect x = \"400\" y = \"100\" width = \"","\"");
     width_towtruck = stod(element2);
 
     
@@ -305,11 +365,11 @@ EbDevice* eb_parse(string svg){
     rotation = stod(element3);
     
     //getting length_shaft
-    string element4 = eb_extractValue(svg,"rect x = \"460\" y = \"230\" width = \"40\" height = \"","\"");
+    string element4 = eb_extractValue(svg,"rect x = \"470\" y = \"120\" width = \"20\" height = \"","\"");
     length_shaft = stod(element4);
 
     //getting width_platform
-    string element5 = eb_extractValue(svg,"rect x = \"620\" y = \"750\" width = \"","\"");
+    string element5 = eb_extractValue(svg,"rect x = \"620\" y = \"629\" width = \"","\"");
     width_platform = stod(element5);
 
 
@@ -339,7 +399,7 @@ string eb_extractValue(string svg, string startingValue, string endingValue){
     A function which read from a file a string
 */
 string eb_read_from_file(string filename){
-    ifstream t("../"+filename+".svg");
+    ifstream t(filename);
     stringstream buffer;
     buffer << t.rdbuf();
     string svg_string = buffer.str();
