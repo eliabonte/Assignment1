@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "device.h"
+#include "EB_Device.h"
 #include <string.h>
 #include <cmath>
 #include <fstream>
@@ -193,7 +193,10 @@ int main() {
     }while(choice=='1' || choice=='2' || choice=='3' || choice=='4'|| choice=='5');
 
     EbDevice* deviceRead = new EbDevice;
-    string svg=eb_read_from_file("deviceToRead.svg");
+    string fileToRead;
+    cout<<endl<<"Tell me the name(and extension) of the file you want to load and create a struct Device: ";
+    cin>>fileToRead;
+    string svg=eb_read_from_file(fileToRead);
     deviceRead=eb_parse(svg);
     if(deviceRead==NULL){
         cout<<errormsg<<endl;
@@ -201,7 +204,7 @@ int main() {
     }
     
     cout<<endl<<"Parameters of the svg load from file: "<<endl;
-    cout<<deviceRead->length_shaft<<" , "<<deviceRead->width_towtruck<<" , "<<deviceRead->width_platform<<" , "<<deviceRead->rotation<<" , "<<deviceRead->sliding<<endl;
-    
+    eb_printParameters(deviceRead);
+
     return 0;
 }

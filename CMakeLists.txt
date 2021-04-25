@@ -11,7 +11,7 @@ add_executable(mainEntry main.cpp)
 target_include_directories(mainEntry PRIVATE include)
 # Class A is not a library: its source file needs to be included in the target sources
 target_sources(mainEntry PRIVATE 
-            src/MyDevice.cpp
+            src/EB_Device.cpp
                                  )
 target_link_libraries(mainEntry)
 
