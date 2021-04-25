@@ -1,5 +1,5 @@
-#ifndef DEVICE_H
-#define DEVICE_H
+#ifndef EB_DEVICE_H
+#define EB_DEVICE_H
 
 #include <string.h>
 #include <cmath>
@@ -104,12 +104,6 @@ void eb_save_to_file(string stringToWrite, string filename);
     function, which creates a struct from a SVG textual representation
 */
 EbDevice* eb_parse(string svg);
-
-/*
-    function which extract a piece of a string
-    function needed in eb_parse
-*/
-string eb_extractValue(string svg, string startingValue, string endingValue);
 
 /*
     A function which read from a file a string

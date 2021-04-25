@@ -1,6 +1,6 @@
 
 #include "catch2/catch2.hpp"
-#include "../include/device.h"
+#include "../include/EB_Device.h"
 
 
 using namespace std;

@@ -1,5 +1,5 @@
 
-#include "../include/device.h"
+#include "../include/EB_Device.h"
 #include <iostream>
 #include <string.h>
 #include <cmath>
@@ -125,7 +125,7 @@ string eb_to_svg(EbDevice* eb_device, bool with_measures){
             carrello gru con spostamento orizzontale
         */
         code+="<g>\n";
-        code+="<rect x = \""+to_string((int)sliding)+"\" y = \"100\" width = \"" + to_string(widthTt) +"\" height = \"40\" stroke = \"black\" stroke-width = \"3\" fill = \"yellow\"/>\n";
+        code+="<rect x = \""+to_string(sliding)+"\" y = \"100\" width = \"" + to_string(widthTt) +"\" height = \"40\" stroke = \"black\" stroke-width = \"3\" fill = \"yellow\"/>\n";
         code+="<text x = \""+to_string(sliding)+"\" y = \"65\" fill = \"black\"> width_towtruck = "+to_string((int)sliding)+" </text>\n";
         code+="<line x1 = \""+to_string(sliding)+"\" y1 = \"75\" x2 = \""+to_string(sliding+widthTt)+"\" y2 = \"75\"  stroke = \"black\" stroke-width  = \"2\"/>\n";
 
@@ -137,9 +137,9 @@ string eb_to_svg(EbDevice* eb_device, bool with_measures){
             angolo negativo --> asta ruota in senso antiorario(verso dx)
         */
         code+="<g transform  = \"rotate("+to_string(angle)+","+to_string(Xcir)+",120)\">\n";
-        code+="<rect x = \""+to_string((int)(Xcir-std_radius))+"\" y = \"120\" width = \"20\" height = \"" + to_string(length) + "\" stroke = \"black\" stroke-width = \"3\" fill = \"orange\" />\n";
+        code+="<rect x = \""+to_string(Xcir-std_radius)+"\" y = \"120\" width = \"20\" height = \"" + to_string(length) + "\" stroke = \"black\" stroke-width = \"3\" fill = \"orange\" />\n";
         code+="<text x = \""+to_string(Xcir+(widthTt/2)+40)+"\" y = \""+to_string(std_Ycir+(length/2))+"\" fill = \"black\"> length_shaft = "+to_string((int)length)+" </text>\n";
-        code+="<line x1 = \""+to_string((int)(Xcir+(widthTt/2)+30))+"\" y1 = \"120\" x2 = \""+to_string((Xcir+(widthTt/2)+30))+"\" y2 = \""+to_string((120+length))+"\"  stroke = \"black\" stroke-width  = \"2\"/>\n";
+        code+="<line x1 = \""+to_string(Xcir+(widthTt/2)+30)+"\" y1 = \"120\" x2 = \""+to_string((Xcir+(widthTt/2)+30))+"\" y2 = \""+to_string((120+length))+"\"  stroke = \"black\" stroke-width  = \"2\"/>\n";
         code+="<text x = \""+to_string(Xcir-std_radius-80)+"\" y = \""+to_string(std_Ycir-10+(length/2))+"\" fill = \"black\"> angle="+to_string((int)angle)+" </text>\n";
         code+="<line x1 = \""+to_string(Xcir-std_radius-70)+"\" y1 = \""+to_string(std_Ycir+(length/2))+"\" x2 = \""+to_string(Xcir-std_radius)+"\" y2 = \""+to_string(std_Ycir+(length/2))+"\"  stroke = \"black\" stroke-width  = \"2\"/>\n";
         code+="<circle cx = \""+to_string(Xcir)+"\" cy = \"120\" r = \"10\" stroke = \"black\" stroke-width = \"3\" fill = \"white\"/>\n";
@@ -149,7 +149,7 @@ string eb_to_svg(EbDevice* eb_device, bool with_measures){
             piattaforma
         */
         code+="<g>\n";
-        code+="<rect x = \""+to_string((int)Xplatform)+"\" y = \""+to_string((int)Yplatform)+"\" width = \""+to_string(widthPla)+"\" height = \"20\"  stroke = \"black\" stroke-width = \"3\" fill = \"black\" />\n";
+        code+="<rect x = \""+to_string(Xplatform)+"\" y = \""+to_string(Yplatform)+"\" width = \""+to_string(widthPla)+"\" height = \"20\"  stroke = \"black\" stroke-width = \"3\" fill = \"black\" />\n";
         code+="<text x = \""+to_string(Xplatform+(widthPla/4))+"\" y = \""+to_string(Yplatform+std_platformHeight+40)+"\" fill = \"black\"> width_platform = "+to_string((int)widthPla)+" </text>\n";
         code+="<line x1 = \""+to_string(Xplatform)+"\" y1 = \""+to_string(Yplatform+std_platformHeight+20)+"\" x2 = \""+to_string(Xplatform+widthPla)+"\" y2 = \""+to_string(Yplatform+std_platformHeight+20)+"\"  stroke = \"black\" stroke-width  = \"2\"/>\n";
         code+="</g>\n\n";
@@ -181,7 +181,7 @@ string eb_to_svg(EbDevice* eb_device, bool with_measures){
         carrello gru con spostamento orizzontale
     */
     code+="<g>\n";
-    code+="<rect x = \""+to_string((int)sliding)+"\" y = \"100\" width = \"" + to_string(widthTt) +"\" height = \"40\" stroke = \"black\" stroke-width = \"3\" fill = \"yellow\"/>\n";
+    code+="<rect x = \""+to_string(sliding)+"\" y = \"100\" width = \"" + to_string(widthTt) +"\" height = \"40\" stroke = \"black\" stroke-width = \"3\" fill = \"yellow\"/>\n";
     code+="</g>\n\n";
 
     /*
@@ -190,7 +190,7 @@ string eb_to_svg(EbDevice* eb_device, bool with_measures){
         angolo negativo --> asta ruota in senso antiorario(verso dx)
     */
     code+="<g transform  = \"rotate("+to_string(angle)+","+to_string(Xcir)+",120)\">\n";
-    code+="<rect x = \""+to_string((int)(Xcir-std_radius))+"\" y = \"120\" width = \"20\" height = \"" + to_string(length) + "\" stroke = \"black\" stroke-width = \"3\" fill = \"orange\" />\n";
+    code+="<rect x = \""+to_string(Xcir-std_radius)+"\" y = \"120\" width = \"20\" height = \"" + to_string(length) + "\" stroke = \"black\" stroke-width = \"3\" fill = \"orange\" />\n";
     code+="<circle cx = \""+to_string(Xcir)+"\" cy = \"120\" r = \"10\" stroke = \"black\" stroke-width = \"3\" fill = \"white\"/>\n";
     code+="</g>\n\n";
 
@@ -198,7 +198,7 @@ string eb_to_svg(EbDevice* eb_device, bool with_measures){
         piattaforma
     */
     code+="<g>\n";
-    code+="<rect x = \""+to_string((int)Xplatform)+"\" y = \""+to_string((int)Yplatform)+"\" width = \""+to_string(widthPla)+"\" height = \"20\"  stroke = \"black\" stroke-width = \"3\" fill = \"black\" />\n";
+    code+="<rect x = \""+to_string(Xplatform)+"\" y = \""+to_string(Yplatform)+"\" width = \""+to_string(widthPla)+"\" height = \"20\"  stroke = \"black\" stroke-width = \"3\" fill = \"black\" />\n";
     code+="</g>\n\n";
 
     code+="</svg>\n";
@@ -351,26 +351,41 @@ EbDevice* eb_parse(string svg){
     
     
     //getting sliding
-    string element1 = eb_extractValue(svg,"rect x = \"","\"");
-    sliding = stod(element1);
+    string search = "rect x = \"";
+    size_t find1 = svg.find(search) + search.size();
+    size_t find2= svg.find("\"", find1);
+    string element = svg.substr(find1, find2-find1);
+    sliding = stod(element);
 
 
     //getting width_towtruck
-    string element2 = eb_extractValue(svg,"rect x = \"400\" y = \"100\" width = \"","\"");
-    width_towtruck = stod(element2);
+    search = "y = \"100\" width = \"";
+    size_t find3 = svg.find(search,find1) + search.size();
+    size_t find4= svg.find("\"", find3);
+    element = svg.substr(find3, find4-find3);
+    width_towtruck = stod(element);
 
     
     //getting rotation
-    string element3 = eb_extractValue(svg,"g transform  = \"rotate(",",");
-    rotation = stod(element3);
+    search = "g transform  = \"rotate(";
+    size_t find5 = svg.find(search,find3) + search.size();
+    size_t find6= svg.find(",", find5);
+    element = svg.substr(find5, find6-find5);
+    rotation = stod(element);
     
     //getting length_shaft
-    string element4 = eb_extractValue(svg,"rect x = \"470\" y = \"120\" width = \"20\" height = \"","\"");
-    length_shaft = stod(element4);
+    search = "y = \"120\" width = \"20\" height = \"";
+    size_t find7 = svg.find(search,find5) + search.size();
+    size_t find8= svg.find("\"", find7);
+    element = svg.substr(find7, find8-find7);
+    length_shaft = stod(element);
 
     //getting width_platform
-    string element5 = eb_extractValue(svg,"rect x = \"620\" y = \"629\" width = \"","\"");
-    width_platform = stod(element5);
+    search = " width = \"";
+    size_t find9 = svg.find(search,find7) + search.size();
+    size_t find10= svg.find("\"", find9);
+    element = svg.substr(find9, find10-find9);
+    width_platform = stod(element);
 
 
     EbDevice* device = new EbDevice;
@@ -384,16 +399,6 @@ EbDevice* eb_parse(string svg){
     return device;
 }
 
-/*
-    function which extract a piece of a string
-    function needed in eb_parse
-*/
-string eb_extractValue(string svg, string startingValue, string endingValue){
-    size_t find1 = svg.find(startingValue) + startingValue.size();
-    size_t find2= svg.find(endingValue, find1);
-    string element = svg.substr(find1, find2-find1);
-    return element;
-} 
 
 /*
     A function which read from a file a string
