@@ -1,6 +1,4 @@
-#include "../include/LBAMTTBiellaManovella.h"
-
-using namespace std;
+#include "LBAMTTBiellaManovella.h"
 
 LBAMTTdevice * LBAMTTinitDevice (cDbl dShaft, cDbl stroke, cDbl lenBiella, cDbl wBiella, cDbl hPistone, cDbl dPistone, cDbl angle){
     
@@ -172,8 +170,8 @@ string LBAMTTdeviceToStringSVG (LBAMTTdevice * device, double cxShaft, double cy
 
     string deviceSVG = "";
 
-    //definizione marker arrow e rotazione dispositivo
-    deviceSVG += LBAMTTarrowMarkerSVG(cxShaft,cyShaft); 
+    //definizione marker arrow
+    deviceSVG += LBAMTTarrowMarkerSVG(); 
 
     //biella
     deviceSVG += LBAMTTrectSVG(cxBiella, cyBiella - device->wBiella/2, 

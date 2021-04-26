@@ -29,7 +29,7 @@ string LBAMTTheaderSVG(string s);
  * --> si vuole infatti il device ruotato di 90 gradi rispetto all'originale per integrarlo meglio all'Eb_device
  * @return stringa che definisce il marker
  */
-string LBAMTTarrowMarkerSVG(double cxShaft, double cyShaft);
+string LBAMTTarrowMarkerSVG();
 
 /**
  * Crea una stringa per la rappresentazione di un rettangolo in formato SVG

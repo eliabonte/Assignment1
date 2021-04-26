@@ -14,6 +14,7 @@ target_sources(mainEntry PRIVATE
             src/EB_Device.cpp
             src/LBAMTTBiellaManovella.cpp
             src/LBAMTTcadSVG.cpp
+            src/EB_Machine.cpp
                                  )
 target_link_libraries(mainEntry)
 

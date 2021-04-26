@@ -17,6 +17,7 @@ target_include_directories(catch2Test PRIVATE
 target_sources(catch2Test PRIVATE
         ../src/EB_Device.cpp
         ../src/LBAMTTBiellaManovella.cpp
-        ../src/LBAMTTcadSVG.cpp)
+        ../src/LBAMTTcadSVG.cpp
+        ../src/EB_Machine.cpp)
 
 #target_compile_options(catch2Test PRIVATE -Wa,-mbig-obj) # Solves assembler error of file too big

@@ -2,6 +2,7 @@
 
 #include "include/EB_Device.h"
 #include "include/LBAMTTBiellaManovella.h"
+#include "include/EB_Machine.h"
 
 
 using namespace std;
@@ -19,23 +20,57 @@ void eb_printParameters(EbDevice* device){
 }
 
 int main() {
-
     
+    EbMachine* eb_machine = new EbMachine;
+    double XposMachine = 200;
+    int n =2 ; //numero di coppie di device nella machine
+    LBAMTTdevice** arrBiellaManovella;
+    EbDevice** arrCarrelloGru;
 
+    arrBiellaManovella = new LBAMTTdevice* [n];
+    arrCarrelloGru = new EbDevice* [n];
+
+    double dShaft = 60;
+    double stroke = 150;
+    double lenBiella = 150;
+    double wBiella = 30;
+    double hPistone = 50;
+    double dPistone = 75;
+    double angle = 30;
+
+    arrBiellaManovella[0] = LBAMTTinitDevice(dShaft,stroke,lenBiella,wBiella,hPistone,dPistone,angle);
+    arrBiellaManovella[1] = LBAMTTinitDevice(dShaft,stroke,lenBiella,wBiella,hPistone,dPistone,angle);
+
+    double* sliding = new double [n];
+
+    double length_shaft = 350;
+    double width_towTruch = 100;
+    double width_platform = 150;
+    double rotation = -30;
+
+    double* xShafts = new double [n];
+    xShafts[0] = XposMachine;
+   
+    for(int i=0;i<n;i++){
+        if(i>0){
+            xShafts[i] = eb_cxShaft(arrCarrelloGru[i-1]);
+        }
+        sliding[i] = eb_sliding(xShafts[i] + arrBiellaManovella[i]->dShaft/2,arrBiellaManovella[i]->stroke,arrBiellaManovella[i]->lenBiella,arrBiellaManovella[i]->angle,arrBiellaManovella[i]->hPistone,arrBiellaManovella[i]->wBiella);
+        arrCarrelloGru[i] = eb_init(length_shaft,width_towTruch,width_platform,rotation,sliding[i]);
+    }
+
+    eb_machine = eb_machine_init(XposMachine, arrBiellaManovella, arrCarrelloGru,1);
+
+    string svg = eb_machine_to_svg(eb_machine,n);
+    eb_save_to_file(svg,"machine");
+
+
+    delete [] sliding;
+    delete [] arrBiellaManovella;
+    delete [] arrCarrelloGru;
+    
+    
     /*
-    LBAMTTdevice* device = new LBAMTTdevice;
-
-    double dShaft = 120;
-    double stroke = 300;
-    double lenBiella = 300;
-    double wBiella = 60;
-    double hPistone = 100;
-    double dPistone = 150;
-    double angle = 60;
-
-
-
-
     device = LBAMTTinitDevice(dShaft, stroke, lenBiella, wBiella, hPistone, dPistone, angle);
     if(device == NULL) cout << "errore parametri" << endl;
     else{
