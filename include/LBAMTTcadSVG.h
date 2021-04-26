@@ -24,9 +24,12 @@ string LBAMTTheaderSVG(string s);
 
 /**
  * Crea una stringa che definisce un marker a forma di freccia, necessario per le quote
+ * @param cxShaft x del centro dell'albero --> corrisponde al centro di istantanea rotazione
+ * @param cyShaft y del centro dell'albero --> Ycir
+ * --> si vuole infatti il device ruotato di 90 gradi rispetto all'originale per integrarlo meglio all'Eb_device
  * @return stringa che definisce il marker
  */
-string LBAMTTarrowMarkerSVG();
+string LBAMTTarrowMarkerSVG(double cxShaft, double cyShaft);
 
 /**
  * Crea una stringa per la rappresentazione di un rettangolo in formato SVG

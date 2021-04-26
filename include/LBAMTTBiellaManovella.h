@@ -24,7 +24,7 @@ typedef const double cDbl;
 
 using namespace std;
 
-typedef struct LBAMTTdevice{
+struct LBAMTTdevice{
     double dShaft; //diametro albero
     double stroke; //corsa pistone
     double lenBiella; //lunghezza biella
@@ -32,7 +32,7 @@ typedef struct LBAMTTdevice{
     double hPistone; //altezza pistone
     double dPistone; //diametro pistone
     double angle; //angolo in gradi della manovella
-} LBAMTTdevice;
+};
 
 /**
  * ALLOCA dinamicamente una struttura LBAMTTdevice.

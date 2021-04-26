@@ -1,11 +1,16 @@
-# include "LBAMTTcadSVG.h"
+# include "../include/LBAMTTcadSVG.h"
+
+using namespace std;
 
 string LBAMTTheaderSVG(string s){
     return  "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n\n"
-            "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"800\" height=\"600\" >\n\n" + s + "</svg>\n";
+            "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"800\" height=\"600\" >\n\n" 
+            + s
+            + "</g>\n"
+            +"</svg>\n";
 }
 
-string LBAMTTarrowMarkerSVG(){
+string LBAMTTarrowMarkerSVG(double cxShaft, double cyShaft){
     return  "<defs>\n"
             "<!-- arrowhead marker definition -->\n"
             "<marker id=\"arrow\" viewBox=\"0 0 10 10\" refX=\"0\" refY=\"5\"\n"
@@ -13,7 +18,8 @@ string LBAMTTarrowMarkerSVG(){
             "orient=\"auto-start-reverse\">\n"
             "<path d=\"M 0 1.5 L 10 5 L 0 8.5 z\" />\n"
             "</marker>\n"
-            "</defs>\n\n";
+            "</defs>\n\n"
+            "<g transform  = \"rotate(-90,"+to_string(cxShaft)+","+to_string(cyShaft)+")\">\n";
 }
 
 string LBAMTTrectSVG(cDbl x, cDbl y, cDbl w, cDbl h, string color, double rotation, cDbl xr, cDbl yr){
