@@ -18,8 +18,11 @@ void eb_printParameters(EbDevice* device){
     cout<<"Sliding: "<<device -> sliding<<endl;
 }
 
-int main(int, char**) {
+int main() {
 
+    
+
+    /*
     LBAMTTdevice* device = new LBAMTTdevice;
 
     double dShaft = 120;

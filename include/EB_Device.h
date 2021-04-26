@@ -1,13 +1,6 @@
 #ifndef EB_DEVICE_H
 #define EB_DEVICE_H
 
-#include <string.h>
-#include <cmath>
-#include <fstream>
-#include <streambuf>
-#include <string>
-#include <sstream>
-
 
 using namespace std;
 

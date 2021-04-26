@@ -1,5 +1,5 @@
-#ifndef LBAMTT_BIELLA_MANOVELLA
-#define LBAMTT_BIELLA_MANOVELLA
+#ifndef LBAMTT_BIELLA_MANOVELLA_H
+#define LBAMTT_BIELLA_MANOVELLA_H
 
 #include <iostream>     //output terminale
 #include <string>       //utilizzo string al posto di array di char
