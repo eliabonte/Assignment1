@@ -1,12 +1,8 @@
 #include <iostream>
 
-#include "EB_Device.h"
-#include <string.h>
-#include <cmath>
-#include <fstream>
-#include <streambuf>
-#include <string>
-#include <sstream>
+#include "include/EB_Device.h"
+#include "include/LBAMTTBiellaManovella.h"
+
 
 using namespace std;
 
@@ -22,8 +18,34 @@ void eb_printParameters(EbDevice* device){
     cout<<"Sliding: "<<device -> sliding<<endl;
 }
 
-int main() {
+int main(int, char**) {
 
+    LBAMTTdevice* device = new LBAMTTdevice;
+
+    double dShaft = 120;
+    double stroke = 300;
+    double lenBiella = 300;
+    double wBiella = 60;
+    double hPistone = 100;
+    double dPistone = 150;
+    double angle = 60;
+
+
+
+
+    device = LBAMTTinitDevice(dShaft, stroke, lenBiella, wBiella, hPistone, dPistone, angle);
+    if(device == NULL) cout << "errore parametri" << endl;
+    else{
+        //cout << LBAMTTtoStringSVG(device);
+        LBAMTTsaveToFile(LBAMTTdeviceToStringSVG(device, 400, 200, false),"prova-biella-manovella1.svg");
+        LBAMTTsetAngle(device, 300);
+        LBAMTTsaveToFile(LBAMTTdeviceToStringSVG(device, 400, 200, false),"prova-biella-manovella2.svg");
+    }
+
+    //LBAMTTsaveToFile(LBAMTTdeviceToStringSVG(LBAMTTdeviceFromStringSVG(LBAMTTloadFromFile("prova-biella-manovella1.svg")), 400, 200, true), "copia-biella-manovella1.svg");
+
+
+    /*
     EbDevice* MyDevice = new EbDevice;
     double length_shaft;
     double width_towtruck;
@@ -205,6 +227,6 @@ int main() {
     
     cout<<endl<<"Parameters of the svg load from file: "<<endl;
     eb_printParameters(deviceRead);
-
+    */
     return 0;
 }
