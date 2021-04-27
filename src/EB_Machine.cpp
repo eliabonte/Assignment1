@@ -26,9 +26,19 @@ EbMachine* eb_machine_init(double XposMachine, int n, double* dShaft, double* st
 
     eb_machine->XposMachine=XposMachine;
 
+    if(eb_checkConstraints_Machine(angle,n)==false){
+        cout<<"ERRORE!! Angolo manovella non rispetta vincoli meccanici!!"<<endl;
+        return NULL;
+    }
+
     //inizializzazione devices biella-manovella
     for(int i=0;i<n;i++){
         arrBiellaManovella[i]=LBAMTTinitDevice(dShaft[i],stroke[i],lenBiella[i],wBiella[i],hPistone[i],dPistone[i],angle[i]);
+        //constraints biella-manovella non rispettati
+        if(arrBiellaManovella[i]==NULL){
+            cout<<"ERRORE!! Vincoli biella-manovella non rispettati!!"<<endl;
+            return NULL;
+        }
     }
    
     double* sliding = new double [n];
@@ -41,16 +51,32 @@ EbMachine* eb_machine_init(double XposMachine, int n, double* dShaft, double* st
             xShafts[i] = eb_cxShaft(arrCarrelloGru[i-1]);
         }
         sliding[i] = eb_sliding(xShafts[i], arrBiellaManovella[i]->stroke,arrBiellaManovella[i]->lenBiella,arrBiellaManovella[i]->angle,arrBiellaManovella[i]->hPistone,arrBiellaManovella[i]->wBiella);
-        
         arrCarrelloGru[i]=eb_init(length_shaft[i],width_towtruck[i],width_platform[i],rotation[i],sliding[i]);
+        if(arrCarrelloGru[i]==NULL){
+            cout<<"ERRORE!! Vincoli carrello-gru non rispettati!!"<<endl;
+            return NULL;
+        }
     }
 
-    
     eb_machine->arrBiellaManovella = arrBiellaManovella;  
     eb_machine->arrCarrelloGru = arrCarrelloGru; 
 
     return eb_machine;
 }
+
+/**
+    A function checking mechanical constraints of the machine 
+**/
+bool eb_checkConstraints_Machine(double* angle,int n){
+   
+    for(int i=1;i<n;i++){
+        if(angle[i] > 180 || angle[i] < 0){
+            return false;
+        }
+    }
+
+    return true;
+} 
 
 double eb_sliding(double cxShaft, double stroke, double lenBiella, double angle, double hPistone, double wBiella){
     double sliding;
@@ -255,4 +281,97 @@ double new_eb_Yplatform(EbDevice* carrelloGru, double Yshaft_prec){
     Yplatform= Yshaft_prec + l*cos(angle) - (std_platformHeight/2);
 
     return Yplatform;
+}
+
+/*
+    function, which creates a struct from a SVG textual representation
+*/
+EbMachine* eb_machine_parse(string svg, int n){
+    
+    EbMachine* eb_machine = new EbMachine;
+    LBAMTTdevice** arrBiellaManovella = new LBAMTTdevice* [n];  //array dinamico di puntatori alla struct LBAMTTdevice
+    EbDevice** arrCarrelloGru = new EbDevice* [n];
+
+    /*
+        inizializzo il parametro della struct machine XposMachine
+    */
+    string search = "rect x=\"";
+    size_t find1 = svg.find(search) + search.size();
+    size_t find2= svg.find("\"", find1);
+    string element = svg.substr(find1, find2-find1);
+    eb_machine->XposMachine = stod(element);
+
+    /*
+        inizializzo ora i vari device presenti
+    */
+    arrBiellaManovella[0]=LBAMTTdeviceFromStringSVG(eb_takeLBAMTTstring(svg,0));
+    size_t posFinale_stringLBAMTT = eb_posFinale_stringLBAMTT(svg,0);
+
+    arrCarrelloGru[0]=eb_parse(eb_takeEBstring(svg,posFinale_stringLBAMTT));
+    size_t posFinale_stringEB = eb_posFinale_stringEB(svg,posFinale_stringLBAMTT);
+    
+    for(int i=1;i<n;i++){
+        arrBiellaManovella[i]=LBAMTTdeviceFromStringSVG(eb_takeLBAMTTstring(svg,posFinale_stringEB));
+        posFinale_stringLBAMTT = eb_posFinale_stringLBAMTT(svg,posFinale_stringEB);
+
+        arrCarrelloGru[i]=eb_parse(eb_takeEBstring(svg,posFinale_stringLBAMTT));
+        posFinale_stringEB = eb_posFinale_stringEB(svg,posFinale_stringLBAMTT);
+    }
+    
+    eb_machine->arrBiellaManovella=arrBiellaManovella;
+    eb_machine->arrCarrelloGru=arrCarrelloGru;
+
+    return eb_machine;
+}
+
+/*
+    funzione che ritorna il pezzo di stringa relativa al device biella-manovella
+*/
+string eb_takeLBAMTTstring(string svg,size_t pos){
+    string search,element;
+    search = "g transform ";
+    size_t find1 = svg.find(search,pos) + search.size();
+    size_t find2= svg.find("/g>", find1);
+    
+    element = svg.substr(find1, find2-find1);
+
+    return element;
+}
+
+/*
+    funzione che ritorna la posizione dove si è arrivati ad estrarre la stringa di LBAMTT
+*/
+size_t eb_posFinale_stringLBAMTT(string svg, size_t pos){
+    string search,element;
+    search = "g transform ";
+    size_t find1 = svg.find(search,pos) + search.size();
+    size_t find2= svg.find("/g>", find1);
+
+    return find2;
+}
+
+/*
+    funzione che prende il pezzo di stringa relativa al device carrello-gru
+*/
+string eb_takeEBstring(string svg,size_t pos){
+    string search,element;
+    search = "<g";
+    size_t find1 = svg.find(search,pos) + search.size();
+    size_t find2= svg.find("fill = \"black\"", find1);
+    
+    element = svg.substr(find1, find2-find1);
+
+    return element;
+}
+
+/*
+    funzione che ritorna la posizione dove si è arrivati ad estrarre la stringa di EB
+*/
+size_t eb_posFinale_stringEB(string svg,size_t pos){
+    string search,element;
+    search = "<g";
+    size_t find1 = svg.find(search,pos) + search.size();
+    size_t find2= svg.find("fill = \"black\"", find1);
+
+    return find2;
 }

@@ -24,6 +24,11 @@ struct EbMachine {
 EbMachine* eb_machine_init(double XposMachine, int n, double* dShaft, double* stroke, double* lenBiella, double* wBiella, double* hPistone, double* dPistone, double* angle,
                             double* length_shaft, double* width_towtruck, double* width_platform, double* rotation);
 
+/**
+    A function checking mechanical constraints of the machine 
+**/
+bool eb_checkConstraints_Machine(double* angle,int n);
+
 /*
     A function which calculate the position of the towtruk
 */
@@ -59,7 +64,29 @@ double eb_cyShaft(EbDevice* carrelloGru, LBAMTTdevice* biellaManovella, double Y
 */
 double new_eb_Yplatform(EbDevice* carrelloGru, double Yshaft_prec);
 
+/*
+    function, which creates a struct from a SVG textual representation
+*/
+EbMachine* eb_machine_parse(string svg, int n);
 
+/*
+    funzione che ritorna il pezzo di stringa relativa al device biella-manovella
+*/
+string eb_takeLBAMTTstring(string svg,size_t pos);
+
+/*
+    funzione che ritorna la posizione dove si è arrivati ad estrarre la stringa di LBAMTT
+*/
+size_t eb_posFinale_stringLBAMTT(string svg, size_t pos);
+
+/*
+    funzione che prende il pezzo di stringa relativa al device carrello-gru
+*/
+string eb_takeEBstring(string svg,size_t pos);
+/*
+    funzione che ritorna la posizione dove si è arrivati ad estrarre la stringa di EB
+*/
+size_t eb_posFinale_stringEB(string svg,size_t pos);
 
 
 #endif

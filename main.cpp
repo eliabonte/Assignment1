@@ -1,8 +1,16 @@
 #include <iostream>
+#include <iostream>
+#include <string.h>
+#include <cmath>
+#include <fstream>
+#include <streambuf>
+#include <string>
+#include <sstream>
 
 #include "include/EB_Device.h"
 #include "include/LBAMTTBiellaManovella.h"
 #include "include/EB_Machine.h"
+
 
 
 using namespace std;
@@ -22,8 +30,12 @@ void eb_printParameters(EbDevice* device){
 int main() {
     
     EbMachine* eb_machine = new EbMachine;
-    double XposMachine = 200;
-    int n =3 ; //numero di coppie di device nella machine
+    double XposMachine = 100;
+    int n ; //numero di coppie di device nella machine
+
+    cout<<"Nella tua machine quante coppie di biella-manovella + carrelo-gru vuoi??"<<endl;
+    cin>>n;
+    
     LBAMTTdevice** arrBiellaManovella;
     EbDevice** arrCarrelloGru;
 
@@ -45,9 +57,10 @@ int main() {
         wBiella[i] = 30;
         hPistone[i] = 50;
         dPistone[i] = 75;
+        angle[i] = 40;
     }
-    angle[0] = 30;
-    angle[1]=180;
+    angle[0] = 290;
+
 
     double* sliding = new double [n];
 
@@ -63,19 +76,50 @@ int main() {
         rotation[i]=-30;
     }
     rotation[1]=30;
-    rotation[2]=30;
-
-
+    rotation[2]=-60;
+    
+    
     eb_machine = eb_machine_init(XposMachine, n, dShaft, stroke, lenBiella, wBiella, hPistone, dPistone, angle, length_shaft, width_towTruck, width_platform, rotation);
+    if(eb_machine==NULL){
+        cout<<"ERROR 404!!!"<<endl;
+        exit(1);
+    }
 
-    string svg = eb_machine_to_svg(eb_machine,n);
-    eb_save_to_file(svg,"machine");
+    eb_save_to_file(eb_machine_to_svg(eb_machine,n),"machine");
+    
+    /*
+    EbDevice* eb;
+    string fileToRead;
+
+    string svg=eb_read_from_file("machine.svg");
 
 
+    n=3;
+
+    eb= eb_parse(svg);
+    cout<<endl<<"Parameters of the svg load from file: "<<endl;
+    eb_printParameters(eb);
+
+    //eb_save_to_file(eb_machine_to_svg(eb_machine,n),"machineverifica");
+*/
+/*
+    delete [] dShaft;
+    delete []  stroke;
+    delete []  lenBiella;
+    delete [] wBiella;
+    delete [] hPistone;
+    delete []  dPistone;
+    delete [] angle;
+
+    delete [] length_shaft;
+    delete [] width_towTruck;
+    delete [] width_platform;
+    delete [] rotation;
     delete [] sliding;
+
     delete [] arrBiellaManovella;
     delete [] arrCarrelloGru;
-    
+    */
     /*
     device = LBAMTTinitDevice(dShaft, stroke, lenBiella, wBiella, hPistone, dPistone, angle);
     if(device == NULL) cout << "errore parametri" << endl;
@@ -258,6 +302,9 @@ int main() {
 
     }while(choice=='1' || choice=='2' || choice=='3' || choice=='4'|| choice=='5');
 
+    */
+   /*
+    EbDevice* MyDevice = new EbDevice;
     EbDevice* deviceRead = new EbDevice;
     string fileToRead;
     cout<<endl<<"Tell me the name(and extension) of the file you want to load and create a struct Device: ";
@@ -265,13 +312,15 @@ int main() {
     string svg=eb_read_from_file(fileToRead);
     deviceRead=eb_parse(svg);
     if(deviceRead==NULL){
-        cout<<errormsg<<endl;
+        cout<<"errormsg"<<endl;
         exit(1);
     }
     
     cout<<endl<<"Parameters of the svg load from file: "<<endl;
     eb_printParameters(deviceRead);
-    */
 
+    eb_destroy_device(MyDevice);
+    
+*/
     return 0;
 }

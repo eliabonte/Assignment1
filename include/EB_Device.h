@@ -107,4 +107,9 @@ EbDevice* eb_parse(string svg);
 */
 string eb_read_from_file(string filename);
 
+/*
+    function which destroy the device
+*/
+int eb_destroy_device(EbDevice* device);
+
 #endif //DEVICE_H

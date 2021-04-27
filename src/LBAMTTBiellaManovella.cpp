@@ -12,7 +12,7 @@ LBAMTTdevice * LBAMTTinitDevice (cDbl dShaft, cDbl stroke, cDbl lenBiella, cDbl 
     device->dPistone = dPistone;
     device->angle = angle;
 
-    if(LBAMTTcheckIntegrity(device)){
+    if(LBAMTTcheckIntegrity(device)!=0){
         delete device;
         return NULL;
     }

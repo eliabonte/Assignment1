@@ -412,3 +412,15 @@ string eb_read_from_file(string filename){
 
     return svg_string;
 }
+
+/*
+    function which destroy the device
+*/
+int eb_destroy_device(EbDevice* device){
+    
+    if (device == NULL) return 1;
+    
+    delete device;
+
+    return 0;
+}
