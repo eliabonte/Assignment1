@@ -194,7 +194,7 @@ TEST_CASE("eb_to_svg should return a string with the right code","[MyDevice]"){
     EbDevice* device = eb_init(600,180,350,-25,300);
     string check = eb_read_from_file("prototipo.svg");
 
-    REQUIRE(eb_to_svg(device,true)==check);
+    REQUIRE(eb_to_svg(device,false)==check);
 }
 
 /*
