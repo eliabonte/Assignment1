@@ -23,7 +23,7 @@ int main() {
     
     EbMachine* eb_machine = new EbMachine;
     double XposMachine = 200;
-    int n =2 ; //numero di coppie di device nella machine
+    int n =3 ; //numero di coppie di device nella machine
     LBAMTTdevice** arrBiellaManovella;
     EbDevice** arrCarrelloGru;
 
@@ -45,8 +45,9 @@ int main() {
         wBiella[i] = 30;
         hPistone[i] = 50;
         dPistone[i] = 75;
-        angle[i] = 30;
     }
+    angle[0] = 30;
+    angle[1]=180;
 
     double* sliding = new double [n];
 
@@ -61,6 +62,9 @@ int main() {
         width_platform[i]=150;
         rotation[i]=-30;
     }
+    rotation[1]=30;
+    rotation[2]=30;
+
 
     eb_machine = eb_machine_init(XposMachine, n, dShaft, stroke, lenBiella, wBiella, hPistone, dPistone, angle, length_shaft, width_towTruck, width_platform, rotation);
 
@@ -71,7 +75,6 @@ int main() {
     delete [] sliding;
     delete [] arrBiellaManovella;
     delete [] arrCarrelloGru;
-    
     
     /*
     device = LBAMTTinitDevice(dShaft, stroke, lenBiella, wBiella, hPistone, dPistone, angle);
@@ -85,7 +88,7 @@ int main() {
 
     //LBAMTTsaveToFile(LBAMTTdeviceToStringSVG(LBAMTTdeviceFromStringSVG(LBAMTTloadFromFile("prova-biella-manovella1.svg")), 400, 200, true), "copia-biella-manovella1.svg");
 
-
+*/
     /*
     EbDevice* MyDevice = new EbDevice;
     double length_shaft;
@@ -269,5 +272,6 @@ int main() {
     cout<<endl<<"Parameters of the svg load from file: "<<endl;
     eb_printParameters(deviceRead);
     */
+
     return 0;
 }

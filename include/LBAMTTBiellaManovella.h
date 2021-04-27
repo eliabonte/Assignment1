@@ -144,7 +144,7 @@ int LBAMTTsetAngle (LBAMTTdevice * device, cDbl angle);
  * @return string deviceSVG;
  *      vuoto in caso di errore
 */
-string eb_LBAMTTdeviceToStringSVG (LBAMTTdevice * device, double cxShaft, double cyShaft, bool quote = false, bool header = true);
+string LBAMTTdeviceToStringSVG (LBAMTTdevice * device, double cxShaft, double cyShaft, bool quote = false, bool header = true);
 
 /**
  * Splitta una stringa secondo una sottostringa passata

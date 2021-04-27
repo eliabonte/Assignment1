@@ -12,6 +12,9 @@
 using namespace std;
 
 const double std_YposMachine = 100;
+const double std_shaftWidth = 20;
+const double std_platformHeight = 20;
+const double std_radius=10;
 
 
 EbMachine* eb_machine_init(double XposMachine, int n, double* dShaft, double* stroke, double* lenBiella, double* wBiella, double* hPistone, double* dPistone, double* angle,
@@ -75,8 +78,9 @@ string eb_machine_to_svg(EbMachine* machine, int n){
     //definisco vettore delle x e y dei centri degli alberi nella machine
     for(int i=1;i<n;i++){
         xShafts[i] = eb_cxShaft(machine->arrCarrelloGru[i-1]);
-        yShafts[i] = eb_cyShaft(machine->arrCarrelloGru[i-1],machine->arrBiellaManovella[i]);
+        yShafts[i] = eb_cyShaft(machine->arrCarrelloGru[i-1],machine->arrBiellaManovella[i],yShafts[i-1]);
     }
+
 
     /*
         creo la stringa machine_svg
@@ -85,7 +89,7 @@ string eb_machine_to_svg(EbMachine* machine, int n){
                   "<svg xmlns=\"http://www.w3.org/2000/svg\" style=\"background-color:white\" width=\"1500\" height=\"1000\" >\n\n";
     for(int i=0;i<n;i++){
         machine_svg += eb_new_LBAMTTdeviceToStringSVG(machine->arrBiellaManovella[i],xShafts[i],yShafts[i]); 
-        machine_svg += eb_new_to_svg(machine->arrCarrelloGru[i],yShafts[i]);
+        machine_svg += eb_new_to_svg(machine->arrCarrelloGru[i],yShafts[i],machine->arrBiellaManovella[i]->dPistone);
     }
 
     machine_svg += "</svg>";
@@ -168,12 +172,9 @@ string eb_new_LBAMTTdeviceToStringSVG (LBAMTTdevice * device, double cxShaft, do
     return deviceSVG;
 }
 
-string eb_new_to_svg(EbDevice* eb_device, double yShaft){
-    const double std_shaftWidth = 20;
-    const double std_towtruckHeight = 40;
-    const double std_platformHeight = 20;
-    const double std_radius=10;
+string eb_new_to_svg(EbDevice* eb_device, double yShaft, double dPistone){
 
+    const double std_towtruckHeight = dPistone;
     double Ycir = yShaft;
     double YtowTruck = Ycir-std_towtruckHeight/2;
     
@@ -191,9 +192,7 @@ string eb_new_to_svg(EbDevice* eb_device, double yShaft){
     /*variabili utili*/
     double Xcir=eb_Xcir(eb_device);
     double Xplatform=eb_Xplatform(eb_device);
-
-    double angleGru=eb_device->rotation * (M_PI/180);  //necessario angolo in radianti nella funzione seno
-    double Yplatform=Ycir + eb_device->length_shaft*cos(angleGru) - (std_platformHeight/2);
+    double Yplatform=new_eb_Yplatform(eb_device,yShaft);
 
     string code="";
     
@@ -233,11 +232,27 @@ double eb_cxShaft(EbDevice* carrelloGru){
     return cxShaft;
 }
 
-double eb_cyShaft(EbDevice* carrelloGru, LBAMTTdevice* biellaManovella){
+double eb_cyShaft(EbDevice* carrelloGru, LBAMTTdevice* biellaManovella, double Yshaft_prec){
 
-    double yPlatform = eb_Yplatform(carrelloGru);
+    double yPlatform = new_eb_Yplatform(carrelloGru,Yshaft_prec);
 
     double cyShaft = yPlatform - biellaManovella->dShaft*7/10;
     
     return cyShaft;
+}
+
+
+/**
+    A function which calculate coordinate Y of the platform in the machine
+**/
+double new_eb_Yplatform(EbDevice* carrelloGru, double Yshaft_prec){
+    double Yplatform;
+    double angle;
+    double l = carrelloGru->length_shaft;
+
+    angle=carrelloGru->rotation * (M_PI/180);  //necessario angolo in radianti nella funzione seno
+
+    Yplatform= Yshaft_prec + l*cos(angle) - (std_platformHeight/2);
+
+    return Yplatform;
 }

@@ -42,7 +42,7 @@ string eb_new_LBAMTTdeviceToStringSVG (LBAMTTdevice * device, double cxShaft, do
 /*
     New version of the function eb_to_svg to create a svg for a "carrelloGru", readjusted for the machine
 */
-string eb_new_to_svg(EbDevice* eb_device, double yShaft);
+string eb_new_to_svg(EbDevice* eb_device, double yShaft, double dPistone);
 
 /*
     funzione che calcola la pos x degli alberi presenti nella machine
@@ -52,8 +52,12 @@ double eb_cxShaft(EbDevice* CarrelloGru);
 /*
     funzione che calcola la pos x degli alberi presenti nella machine
 */
-double eb_cyShaft(EbDevice* carrelloGru, LBAMTTdevice* biellaManovella);
+double eb_cyShaft(EbDevice* carrelloGru, LBAMTTdevice* biellaManovella, double Yshaft_prec);
 
+/*
+    funzione che calcola la pos y deglle piattaforme dei carreloGru della machine
+*/
+double new_eb_Yplatform(EbDevice* carrelloGru, double Yshaft_prec);
 
 
 
