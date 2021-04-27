@@ -40,9 +40,8 @@ bool eb_drawConstraints(EbDevice* eb_device);
 /**
     A function which produce a string with svg code
     if with_measures is true the drawing will include measurements  
-    if boolean machine is false it means we are building a single device
 **/
-string eb_to_svg(EbDevice* eb_device, bool with_measures, bool machine);
+string eb_to_svg(EbDevice* eb_device, bool with_measures);
 
 /**
     A function which calculate coordinate X of CiR

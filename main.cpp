@@ -30,36 +30,39 @@ int main() {
     arrBiellaManovella = new LBAMTTdevice* [n];
     arrCarrelloGru = new EbDevice* [n];
 
-    double dShaft = 60;
-    double stroke = 150;
-    double lenBiella = 150;
-    double wBiella = 30;
-    double hPistone = 50;
-    double dPistone = 75;
-    double angle = 30;
+    double* dShaft = new double [n];
+    double* stroke = new double [n];
+    double* lenBiella = new double [n];
+    double* wBiella = new double [n];
+    double* hPistone = new double [n];
+    double* dPistone = new double [n];
+    double* angle = new double [n];
 
-    arrBiellaManovella[0] = LBAMTTinitDevice(dShaft,stroke,lenBiella,wBiella,hPistone,dPistone,angle);
-    arrBiellaManovella[1] = LBAMTTinitDevice(dShaft,stroke,lenBiella,wBiella,hPistone,dPistone,angle);
+    for(int i=0;i<n;i++){
+        dShaft[i] = 60;
+        stroke[i] = 150;
+        lenBiella[i] =  150;
+        wBiella[i] = 30;
+        hPistone[i] = 50;
+        dPistone[i] = 75;
+        angle[i] = 30;
+    }
 
     double* sliding = new double [n];
 
-    double length_shaft = 350;
-    double width_towTruch = 100;
-    double width_platform = 150;
-    double rotation = -30;
-
-    double* xShafts = new double [n];
-    xShafts[0] = XposMachine;
-   
+    double* length_shaft = new double [n];
+    double* width_towTruck = new double [n];
+    double* width_platform = new double [n];
+    double* rotation = new double [n];
+    
     for(int i=0;i<n;i++){
-        if(i>0){
-            xShafts[i] = eb_cxShaft(arrCarrelloGru[i-1]);
-        }
-        sliding[i] = eb_sliding(xShafts[i] + arrBiellaManovella[i]->dShaft/2,arrBiellaManovella[i]->stroke,arrBiellaManovella[i]->lenBiella,arrBiellaManovella[i]->angle,arrBiellaManovella[i]->hPistone,arrBiellaManovella[i]->wBiella);
-        arrCarrelloGru[i] = eb_init(length_shaft,width_towTruch,width_platform,rotation,sliding[i]);
+        length_shaft[i]=350;
+        width_towTruck[i]=100;
+        width_platform[i]=150;
+        rotation[i]=-30;
     }
 
-    eb_machine = eb_machine_init(XposMachine, arrBiellaManovella, arrCarrelloGru,1);
+    eb_machine = eb_machine_init(XposMachine, n, dShaft, stroke, lenBiella, wBiella, hPistone, dPistone, angle, length_shaft, width_towTruck, width_platform, rotation);
 
     string svg = eb_machine_to_svg(eb_machine,n);
     eb_save_to_file(svg,"machine");

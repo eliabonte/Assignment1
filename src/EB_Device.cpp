@@ -16,10 +16,11 @@ using namespace std;
     const double std_shaftWidth = 20;
     const double std_towtruckHeight = 40;
     const double std_platformHeight = 20;
-
-    const double std_Ycir=200;
     const double std_radius=10;
+    const double std_Ycir=100;
     const double std_YtowTruck=std_Ycir-std_towtruckHeight/2;
+
+    
 /*
     centro di istantanea rotazione --> punto attorno al quale l'asta ruota, corrisponde al
     centro della coppia rotoidale che unisce asta e carrello --> Ycir è fissa, Xcir varia in
@@ -94,7 +95,7 @@ bool eb_drawConstraints(EbDevice* eb_device){
     A function which produce a string with svg code
     if with_measures is true the drawing will include measurements   
 **/
-string eb_to_svg(EbDevice* eb_device, bool with_measures, bool machine){
+string eb_to_svg(EbDevice* eb_device, bool with_measures){
 
     if(eb_drawConstraints(eb_device)==false){
         return "";
@@ -173,10 +174,8 @@ string eb_to_svg(EbDevice* eb_device, bool with_measures, bool machine){
         return code;
     }
 
-    if(machine == false){
-        code+="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n";
-        code+="<svg xmlns=\"http://www.w3.org/2000/svg\" style=\"background-color:white\" width=\"1500\" height=\"1000\">\n\n";
-    }
+    code+="<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n";
+    code+="<svg xmlns=\"http://www.w3.org/2000/svg\" style=\"background-color:white\" width=\"1500\" height=\"1000\">\n\n";
     
     /*
         carrello gru con spostamento orizzontale
@@ -202,9 +201,8 @@ string eb_to_svg(EbDevice* eb_device, bool with_measures, bool machine){
     code+="<rect x = \""+to_string(Xplatform)+"\" y = \""+to_string(Yplatform)+"\" width = \""+to_string(widthPla)+"\" height = \"20\"  stroke = \"black\" stroke-width = \"3\" fill = \"black\" />\n";
     code+="</g>\n\n";
 
-    if(machine == false){
-        code+="</svg>\n";
-    }
+    code+="</svg>\n";
+    
 
     return code;
 }
