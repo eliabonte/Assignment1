@@ -200,13 +200,14 @@ int eb_set_carrelloGru(EbMachine* machine,int numDevice, char choice, double new
             return 1;
         }
         break;
-    case 'w':
+    case 'p':
         eb_set_widthPlatform(machine->arrCarrelloGru[numDevice],newparameter);
         if(eb_set_widthPlatform(machine->arrCarrelloGru[numDevice],newparameter)==1){
             return 1;
         }
         break;
     case 'r':
+        cout<<"looooooooool"<<endl;
         eb_set_rotation(machine->arrCarrelloGru[numDevice],newparameter);
         if(eb_set_rotation(machine->arrCarrelloGru[numDevice],newparameter)==1){
             return 1;
@@ -237,11 +238,18 @@ string eb_machine_to_svg(EbMachine* machine, int n){
     /*
         creo la stringa machine_svg
     */
+   string string1, string2;
     machine_svg += "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n\n"
                   "<svg xmlns=\"http://www.w3.org/2000/svg\" style=\"background-color:white\" width=\"1500\" height=\"1000\" >\n\n";
     for(int i=0;i<n;i++){
-        machine_svg += eb_new_LBAMTTdeviceToStringSVG(machine->arrBiellaManovella[i],xShafts[i],yShafts[i]); 
-        machine_svg += eb_new_to_svg(machine->arrCarrelloGru[i],yShafts[i],machine->arrBiellaManovella[i]->dPistone);
+        string1=eb_new_LBAMTTdeviceToStringSVG(machine->arrBiellaManovella[i],xShafts[i],yShafts[i]);
+        string2= eb_new_to_svg(machine->arrCarrelloGru[i],yShafts[i],machine->arrBiellaManovella[i]->dPistone);
+        if(string1=="" || string2==""){
+            return "";
+        }
+    
+        machine_svg += string1;
+        machine_svg += string2;
     }
 
     machine_svg += "</svg>";

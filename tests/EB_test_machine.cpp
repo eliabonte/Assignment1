@@ -46,6 +46,7 @@ TEST_CASE("init should create a new struct EbMachine","[EbMachine]"){
     EbMachine* machine = eb_machine_init(XposMachine, n, dShaft, stroke, lenBiella, wBiella, hPistone, dPistone, angle, length_shaft, width_towTruck, width_platform, rotation);
 
     REQUIRE(machine!=NULL);
+
 }
 
 /*
@@ -134,6 +135,7 @@ TEST_CASE("eb_set_XposMachine should return 1 if the new position is not good","
     machine = eb_machine_init(XposMachine, n, dShaft, stroke, lenBiella, wBiella, hPistone, dPistone, angle, length_shaft, width_towTruck, width_platform, rotation);
 
     REQUIRE(eb_set_XposMachine(machine, -200)==1);
+
 }
 
 /*
@@ -183,6 +185,7 @@ TEST_CASE("eb_machine_to_svg should return a string with the right code","[EbMac
     string check = eb_read_from_file("machine.svg");
 
     REQUIRE(eb_machine_to_svg(machine,n)==check);
+
 }
 
 /*
@@ -245,6 +248,7 @@ TEST_CASE("eb_machine_parse should create a struct from a svg file","[EbMachine]
     machine2 = eb_machine_init(XposMachine, n, dShaft, stroke, lenBiella, wBiella, hPistone, dPistone, angle, length_shaft, width_towTruck, width_platform, rotation);
     
     REQUIRE(eb_machine_are_equal(machine1,n1,machine2,n)==true);
+
 }
 
 TEST_CASE("eb_machine_are equal should return true if two machines are the same","[EbMachine]"){
@@ -304,6 +308,7 @@ TEST_CASE("eb_machine_are equal should return true if two machines are the same"
     int n2 = eb_count_stringOccurences(pat, svg2)/2;
 
     REQUIRE(eb_machine_are_equal(eb_machine1,n1,eb_machine2,n)==true);
+
 }
 
 TEST_CASE("eb_destroy_machine should delete the machine","[EbMachine]"){
@@ -347,5 +352,6 @@ TEST_CASE("eb_destroy_machine should delete the machine","[EbMachine]"){
     eb_machine = eb_machine_init(XposMachine, n, dShaft, stroke, lenBiella, wBiella, hPistone, dPistone, angle, length_shaft, width_towTruck, width_platform, rotation);
 
     
-    REQUIRE(eb_destroy_machine(eb_machine,n)==0);   
+    REQUIRE(eb_destroy_machine(eb_machine,n)==0); 
+
 }

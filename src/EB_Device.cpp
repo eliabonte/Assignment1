@@ -128,7 +128,7 @@ string eb_to_svg(EbDevice* eb_device, bool with_measures){
         code+="<g>\n";
         code+="<rect x = \""+to_string(sliding)+"\" y = \""+to_string(std_YtowTruck)+"\" width = \"" + to_string(widthTt) +"\" height = \""+to_string(std_towtruckHeight)+"\" stroke = \"black\" stroke-width = \"3\" fill = \"yellow\"/>\n";
         code+="<text x = \""+to_string(sliding)+"\" y = \""+to_string(std_YtowTruck-35)+"\" fill = \"black\"> width_towtruck = "+to_string((int)sliding)+" </text>\n";
-        code+="<line x1 = \""+to_string(sliding)+"\" y1 = \""+to_string(std_YtowTruck-25)+"\" x2 = \""+to_string(sliding+widthTt)+"\" y2 = \"75\"  stroke = \"black\" stroke-width  = \"2\"/>\n";
+        code+="<line x1 = \""+to_string(sliding)+"\" y1 = \""+to_string(std_YtowTruck-25)+"\" x2 = \""+to_string(sliding+widthTt)+"\" y2 = \""+to_string(std_YtowTruck-25)+"\"  stroke = \"black\" stroke-width  = \"2\"/>\n";
 
         code+="</g>\n\n";
 
