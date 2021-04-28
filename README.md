@@ -40,10 +40,11 @@ funzione dello spostamento del carrello lungo x
 
 ## Parte 2
 
-Integrare un ulteriore dispositvo
+Realizzare una machine --> combinazione tra il mio device e quello realizzato da [Matteo Albi](https://github.com/MatteoAlbi/tpa-homework1) .
 
+![](machine.svg)
 
-
+Vi è la possibilità di integrare n coppie di device.
 
 
 
