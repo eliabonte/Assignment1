@@ -305,3 +305,47 @@ TEST_CASE("eb_machine_are equal should return true if two machines are the same"
 
     REQUIRE(eb_machine_are_equal(eb_machine1,n1,eb_machine2,n)==true);
 }
+
+TEST_CASE("eb_destroy_machine should delete the machine","[EbMachine]"){
+    EbMachine* eb_machine = new EbMachine;
+    double XposMachine = 200;
+    int n=1; //numero di coppie di device nella machine
+    
+    
+    double* dShaft = new double [n];
+    double* stroke = new double [n];
+    double* lenBiella = new double [n];
+    double* wBiella = new double [n];
+    double* hPistone = new double [n];
+    double* dPistone = new double [n];
+    double* angle = new double [n];
+
+    for(int i=0;i<n;i++){
+        dShaft[i] = 60;
+        stroke[i] = 150;
+        lenBiella[i] =  150;
+        wBiella[i] = 30;
+        hPistone[i] = 50;
+        dPistone[i] = 75;
+        angle[i] = 40;
+    }
+
+    double* sliding = new double [n];
+    double* length_shaft = new double [n];
+    double* width_towTruck = new double [n];
+    double* width_platform = new double [n];
+    double* rotation = new double [n];
+    
+    for(int i=0;i<n;i++){
+        length_shaft[i]=350;
+        width_towTruck[i]=100;
+        width_platform[i]=150;
+        rotation[i]=-30;
+    }
+    
+    
+    eb_machine = eb_machine_init(XposMachine, n, dShaft, stroke, lenBiella, wBiella, hPistone, dPistone, angle, length_shaft, width_towTruck, width_platform, rotation);
+
+    
+    REQUIRE(eb_destroy_machine(eb_machine,n)==0);   
+}
