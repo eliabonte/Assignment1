@@ -88,5 +88,10 @@ string eb_takeEBstring(string svg,size_t pos);
 */
 size_t eb_posFinale_stringEB(string svg,size_t pos);
 
+/*
+    destroy machine
+*/
+int destroy(EbMachine* machine, int n);
+
 
 #endif

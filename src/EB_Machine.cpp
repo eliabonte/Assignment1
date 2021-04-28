@@ -376,3 +376,19 @@ size_t eb_posFinale_stringEB(string svg,size_t pos){
     return find2;
 }
 
+/*
+    destroy machine
+*/
+int destroy(EbMachine* machine, int n){
+    
+    if(machine==NULL){
+        return 1;
+    }
+    
+    for(int i=0;i<n;i++){
+        LBAMTTdelete(machine->arrBiellaManovella[i]);
+        eb_destroy_device(machine->arrCarrelloGru[i]);
+    }
+    delete machine;
+    return 0;
+}
