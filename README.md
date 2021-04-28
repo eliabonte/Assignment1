@@ -4,6 +4,8 @@
 
 Creare un programma C++ che produca un disegno SVG di un dispositivo meccanico. Succesivamente viene integrato un altro dispositvo, con lo scopo di creare un sistema meccanico complesso e assurdo.
 
+NOTA IMPORTANTE: quando si compila il programma è necessario essere nella stessa del main e non in altre sottocartelle (/build, /build/tests, ...)
+
 
 ## Parte 1
 
