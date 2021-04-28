@@ -36,6 +36,7 @@ int main() {
     cout<<"Nella tua machine quante coppie di biella-manovella + carrelo-gru vuoi??"<<endl;
     cin>>n;
     
+    /*
     LBAMTTdevice** arrBiellaManovella;
     EbDevice** arrCarrelloGru;
 
@@ -86,22 +87,18 @@ int main() {
     }
 
     eb_save_to_file(eb_machine_to_svg(eb_machine,n),"machine");
-    
-    /*
-    EbDevice* eb;
+    */
+    ;
     string fileToRead;
 
     string svg=eb_read_from_file("machine.svg");
 
-
     n=3;
 
-    eb= eb_parse(svg);
-    cout<<endl<<"Parameters of the svg load from file: "<<endl;
-    eb_printParameters(eb);
+    eb_machine= eb_machine_parse(svg,n);
+   
+    eb_save_to_file(eb_machine_to_svg(eb_machine,n),"machineverifica");
 
-    //eb_save_to_file(eb_machine_to_svg(eb_machine,n),"machineverifica");
-*/
 /*
     delete [] dShaft;
     delete []  stroke;

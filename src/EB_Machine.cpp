@@ -295,7 +295,7 @@ EbMachine* eb_machine_parse(string svg, int n){
     /*
         inizializzo il parametro della struct machine XposMachine
     */
-    string search = "rect x=\"";
+    string search = "circle cx=\"";
     size_t find1 = svg.find(search) + search.size();
     size_t find2= svg.find("\"", find1);
     string element = svg.substr(find1, find2-find1);
@@ -375,3 +375,4 @@ size_t eb_posFinale_stringEB(string svg,size_t pos){
 
     return find2;
 }
+
