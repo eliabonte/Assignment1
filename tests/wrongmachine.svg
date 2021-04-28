@@ -8,7 +8,7 @@
 
 <rect x="62.500000" y="237.063746" width="75.000000" height="50.000000" fill="red" transform="rotate(0.000000,0.000000,0.000000)" />
 
-<circle cx="100.000000" cy="100.000000" r="42.000000" fill="green" />
+<circle cx="-100.000000" cy="100.000000" r="42.000000" fill="green" />
 
 <circle cx="29.523053" cy="125.651510" r="21.000000" fill="green" />
 
@@ -36,19 +36,19 @@
 
 <g transform = "rotate(-90,512.063746,351.108891)">
 
-<rect x="560.272817" y="393.562225" width="150.000000" height="30.000000" fill="blue" transform="rotate(108.747237,560.272817,408.562225)" />
+<rect x="560.272816" y="393.562225" width="150.000000" height="30.000000" fill="blue" transform="rotate(108.747237,560.272816,408.562225)" />
 
 <rect x="474.563746" y="529.604069" width="75.000000" height="50.000000" fill="red" transform="rotate(0.000000,0.000000,0.000000)" />
 
 <circle cx="512.063746" cy="351.108891" r="42.000000" fill="green" />
 
-<circle cx="560.272817" cy="408.562225" r="21.000000" fill="green" />
+<circle cx="560.272816" cy="408.562225" r="21.000000" fill="green" />
 
 <rect x="512.063746" y="330.108891" width="75.000000" height="42.000000" fill="green" transform="rotate(50.000000,512.063746,351.108891)" />
 
 <circle cx="512.063746" cy="351.108891" r="30.000000" fill="gray" />
 
-<circle cx="560.272817" cy="408.562225" r="15.000000" fill="Blue" />
+<circle cx="560.272816" cy="408.562225" r="15.000000" fill="Blue" />
 
 <circle cx="512.063746" cy="550.604069" r="15.000000" fill="Blue" />
 
@@ -95,7 +95,7 @@
 </g>
 
 <g>
-<rect x = "1122.162991" y = "767.217783" width = "150.000000" height = "20"  stroke = "black" stroke-width = "3" fill = "black" />
+<rect x = "1122.162992" y = "767.217783" width = "150.000000" height = "20"  stroke = "black" stroke-width = "3" fill = "black" />
 </g>
 
 </svg>

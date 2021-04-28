@@ -204,9 +204,9 @@ TEST_CASE("eb_save_to_file should write a string in a file","[MyDevice]"){
 
     string stringToWrite="ciao";
     
-    eb_save_to_file(stringToWrite,"filetestsave");
+    eb_save_to_file(stringToWrite,"tests/filetestsave");
 
-    REQUIRE(eb_read_from_file("filetestsave.svg")==stringToWrite);
+    REQUIRE(eb_read_from_file("tests/filetestsave.svg")==stringToWrite);
 }
 /*
     testing eb_read_from_file
@@ -215,7 +215,7 @@ TEST_CASE("eb_read_from_file shoul read a string from a file","[MyDevice]"){
 
     string stringToRead="ciao";
 
-    REQUIRE(eb_read_from_file("filetestread.txt")==stringToRead);
+    REQUIRE(eb_read_from_file("tests/filetestread.txt")==stringToRead);
 }
 
 /*
@@ -223,7 +223,7 @@ TEST_CASE("eb_read_from_file shoul read a string from a file","[MyDevice]"){
 */
 TEST_CASE("eb_parse should return NULL, if the measures read from file don't respect the mechanical constraints","[MyDevice]"){
 
-    string svg = eb_read_from_file("wrongdevice.svg");
+    string svg = eb_read_from_file("tests/wrongdevice.svg");
 
     EbDevice* device = eb_parse(svg);
 
