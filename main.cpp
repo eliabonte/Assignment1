@@ -36,13 +36,7 @@ int main() {
     cout<<"Nella tua machine quante coppie di biella-manovella + carrelo-gru vuoi??"<<endl;
     cin>>n;
     
-    /*
-    LBAMTTdevice** arrBiellaManovella;
-    EbDevice** arrCarrelloGru;
-
-    arrBiellaManovella = new LBAMTTdevice* [n];
-    arrCarrelloGru = new EbDevice* [n];
-
+    
     double* dShaft = new double [n];
     double* stroke = new double [n];
     double* lenBiella = new double [n];
@@ -77,7 +71,6 @@ int main() {
         rotation[i]=-30;
     }
     rotation[1]=30;
-    rotation[2]=-60;
     
     
     eb_machine = eb_machine_init(XposMachine, n, dShaft, stroke, lenBiella, wBiella, hPistone, dPistone, angle, length_shaft, width_towTruck, width_platform, rotation);
@@ -86,18 +79,29 @@ int main() {
         exit(1);
     }
 
-    eb_save_to_file(eb_machine_to_svg(eb_machine,n),"machine");
-    */
-    ;
-    string fileToRead;
+    eb_save_to_file(eb_machine_to_svg(eb_machine,n),"machine1");
+    
+    eb_save_to_file(eb_machine_to_svg(eb_machine,n),"machine2");
 
-    string svg=eb_read_from_file("machine.svg");
+    EbMachine* eb_machine1 = new EbMachine;
+    EbMachine* eb_machine2 = new EbMachine;
+    string pat = "g transform"; 
 
-    n=3;
+    string svg1=eb_read_from_file("machine1.svg");    
+    eb_machine1= eb_machine_parse(svg1);
+    int n1 = eb_count_stringOccurences(pat, svg1)/2;
 
-    eb_machine= eb_machine_parse(svg,n);
+    string svg2=eb_read_from_file("machine2.svg");    
+    eb_machine2= eb_machine_parse(svg2);
+    int n2 = eb_count_stringOccurences(pat, svg2)/2;
+    
+    if(eb_machine_are_equal(eb_machine1,n1,eb_machine2,n2)==true){
+        cout<<"machine uguali!!"<<endl;
+    }
+
+    
    
-    eb_save_to_file(eb_machine_to_svg(eb_machine,n),"machineverifica");
+    //eb_save_to_file(eb_machine_to_svg(eb_machine,n),"machineverifica");
 
 /*
     delete [] dShaft;

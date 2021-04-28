@@ -67,7 +67,7 @@ double new_eb_Yplatform(EbDevice* carrelloGru, double Yshaft_prec);
 /*
     function, which creates a struct from a SVG textual representation
 */
-EbMachine* eb_machine_parse(string svg, int n);
+EbMachine* eb_machine_parse(string svg);
 
 /*
     funzione che ritorna il pezzo di stringa relativa al device biella-manovella
@@ -91,7 +91,27 @@ size_t eb_posFinale_stringEB(string svg,size_t pos);
 /*
     destroy machine
 */
-int destroy(EbMachine* machine, int n);
+int eb_destroy_machine(EbMachine* machine, int n);
+
+/*
+    function which checks if the two machines are the same
+*/
+bool eb_machine_are_equal(EbMachine* machine1, int n1, EbMachine* machine2, int n2);
+
+/*
+    function which checks if  two LBAMTT devices are equal
+*/
+bool eb_devicesLBAMTT_are_equal(LBAMTTdevice* device1, LBAMTTdevice* device2);
+
+/*
+    function which checks if two EB devices are equal
+*/
+bool eb_devicesEB_are_equal(EbDevice* device1, EbDevice* device2);
+
+/*
+    funzione che ritorna il numero di coppie di device n presenti in una machine, lette da file svg
+*/
+int eb_count_stringOccurences(string &pat, string &txt);
 
 
 #endif

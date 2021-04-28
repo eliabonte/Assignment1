@@ -286,8 +286,11 @@ double new_eb_Yplatform(EbDevice* carrelloGru, double Yshaft_prec){
 /*
     function, which creates a struct from a SVG textual representation
 */
-EbMachine* eb_machine_parse(string svg, int n){
+EbMachine* eb_machine_parse(string svg){
     
+    string pat = "g transform";  //ricerco quante volte g transform è nel file svg
+    int n=eb_count_stringOccurences(pat, svg)/2; //"g transform" è presente una volta sia in LBAMTTstring che EBstring
+
     EbMachine* eb_machine = new EbMachine;
     LBAMTTdevice** arrBiellaManovella = new LBAMTTdevice* [n];  //array dinamico di puntatori alla struct LBAMTTdevice
     EbDevice** arrCarrelloGru = new EbDevice* [n];
@@ -379,7 +382,7 @@ size_t eb_posFinale_stringEB(string svg,size_t pos){
 /*
     destroy machine
 */
-int destroy(EbMachine* machine, int n){
+int eb_destroy_machine(EbMachine* machine, int n){
     
     if(machine==NULL){
         return 1;
@@ -391,4 +394,103 @@ int destroy(EbMachine* machine, int n){
     }
     delete machine;
     return 0;
+}
+
+/*
+    function which checks if the two machines are the same
+*/
+bool eb_machine_are_equal(EbMachine* machine1, int n1, EbMachine* machine2, int n2){
+    
+    //controllo che ci sia lo stesso numero di devices
+    if(n1!=n2){
+        return false;
+    }
+
+    //controllo che il parametro XposMachine sia uguale
+    if(machine1->XposMachine!=machine2->XposMachine){
+        return false;
+    }
+
+    //controllo parametro per parametro dei vari device presenti
+    for(int i=0;i<n1;i++){
+        if(eb_devicesLBAMTT_are_equal(machine1->arrBiellaManovella[i],machine2->arrBiellaManovella[i])==false){
+            return false;
+        }
+        if(eb_devicesEB_are_equal(machine1->arrCarrelloGru[i],machine2->arrCarrelloGru[i])==false){
+            return false;
+        }
+    }
+
+    return true;
+}
+
+/*
+    function which checks if  two LBAMTT devices are equal
+*/
+bool eb_devicesLBAMTT_are_equal(LBAMTTdevice* device1, LBAMTTdevice* device2){
+    if(device1->stroke!=device2->stroke){
+        return false;
+    }
+    if(device1->angle!=device2->angle){
+        return false;
+    }
+    if(device1->lenBiella!=device2->lenBiella){
+        return false;
+    }
+    if(device1->dPistone!=device2->dPistone){
+        return false;
+    }
+    if(device1->dShaft!=device2->dShaft){
+        return false;
+    }
+    if(device1->hPistone!=device2->hPistone){
+        return false;
+    }
+    return true;
+}
+
+/*
+    function which checks if two EB devices are equal
+*/
+bool eb_devicesEB_are_equal(EbDevice* device1, EbDevice* device2){
+    if(device1->length_shaft!=device2->length_shaft){
+        return false;
+    }
+    if(device1->width_towtruck!=device2->width_towtruck){
+        return false;
+    }
+    if(device1->width_platform!=device2->width_platform){
+        return false;
+    }
+    if(device1->rotation!=device2->rotation){
+        return false;
+    }
+    //non controllo lo sliding perchè nella machine è un parametro dipendente dalla posizione degli altri device
+    return true;
+}    
+
+/*
+    funzione che ritorna il numero di coppie di device n presenti in una machine, lette da file svg
+*/
+int eb_count_stringOccurences(string &pat, string &txt){
+    int M = pat.length();
+    int N = txt.length();
+    int res = 0;
+   
+    /* A loop to slide pat[] one by one */
+    for (int i = 0; i <= N - M; i++){
+        /* For current index i, check for
+           pattern match */
+        int j;
+        for (j = 0; j < M; j++)
+            if (txt[i+j] != pat[j])
+                break;
+  
+        // if pat[0...M-1] = txt[i, i+1, ...i+M-1]
+        if (j == M) {
+           res++;
+           j = 0;
+        }
+    }
+    return res;
 }
