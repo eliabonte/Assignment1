@@ -24,12 +24,17 @@ EbMachine* eb_machine_init(double XposMachine, int n, double* dShaft, double* st
     LBAMTTdevice** arrBiellaManovella = new LBAMTTdevice* [n];  //array dinamico di puntatori alla struct LBAMTTdevice
     EbDevice** arrCarrelloGru = new EbDevice* [n];  //array dinamico di puntatori alla struct EbDevice
 
-    eb_machine->XposMachine=XposMachine;
-
-    if(eb_checkConstraints_Machine(angle,n)==false){
+    
+    if(eb_checkConstraints_Machine(XposMachine)==false){
+        cout<<"ERRORE!! Posizione iniziale machine non rispetta vincoli meccanici!!"<<endl;
+        return NULL;
+    }
+    if(eb_checkConstraints_Machine_angle(angle,n)==false){
         cout<<"ERRORE!! Angolo manovella non rispetta vincoli meccanici!!"<<endl;
         return NULL;
     }
+
+    eb_machine->XposMachine=XposMachine;
 
     //inizializzazione devices biella-manovella
     for(int i=0;i<n;i++){
@@ -65,16 +70,27 @@ EbMachine* eb_machine_init(double XposMachine, int n, double* dShaft, double* st
 }
 
 /**
-    A function checking mechanical constraints of the machine 
+    A function checking mechanical constraints (XposMachine) of the machine 
 **/
-bool eb_checkConstraints_Machine(double* angle,int n){
-   
+bool eb_checkConstraints_Machine(double XposMachine){
+    
+    if(XposMachine<0){
+        return false;
+    }
+    return true;
+} 
+
+
+/**
+    A function checking mechanical constraints (angle) of the machine 
+**/
+bool eb_checkConstraints_Machine_angle(double* angle,int n){
+    
     for(int i=1;i<n;i++){
         if(angle[i] > 180 || angle[i] < 0){
             return false;
         }
     }
-
     return true;
 } 
 
@@ -91,6 +107,109 @@ double eb_sliding(double cxShaft, double stroke, double lenBiella, double angle,
     return sliding;
 
 }
+
+/*
+    set new XposMachine
+*/
+int eb_set_XposMachine(EbMachine* machine, double new_XposMachine){
+    if(eb_checkConstraints_Machine(new_XposMachine)==false){
+        return 1;
+    }
+    machine->XposMachine = new_XposMachine;
+    return 0;
+} 
+
+/*
+    set new biella manovella
+*/
+int eb_set_carrelloGru(EbMachine* machine,int numDevice, char choice, double newparameter){
+    switch (choice)
+    {
+    case 'a':
+        LBAMTTsetAngle(machine->arrBiellaManovella[numDevice],newparameter);
+        if(LBAMTTsetAngle(machine->arrBiellaManovella[numDevice],newparameter)==1){
+            return 1;
+        }
+        break;
+    case 'p':
+        LBAMTTsetDPistone(machine->arrBiellaManovella[numDevice],newparameter);
+        if(LBAMTTsetDPistone(machine->arrBiellaManovella[numDevice],newparameter)==1){
+            return 1;
+        }
+        break;
+    case 'd':
+        LBAMTTsetDShaft(machine->arrBiellaManovella[numDevice],newparameter);
+        if(LBAMTTsetDShaft(machine->arrBiellaManovella[numDevice],newparameter)==1){
+            return 1;
+        }
+        break;
+    case 'b':
+        LBAMTTsetLenBiella(machine->arrBiellaManovella[numDevice],newparameter);
+        if(LBAMTTsetLenBiella(machine->arrBiellaManovella[numDevice],newparameter)==1){
+            return 1;
+        }
+        break;      
+    case 'h':
+        LBAMTTsetHPistone(machine->arrBiellaManovella[numDevice],newparameter);
+        if(LBAMTTsetHPistone(machine->arrBiellaManovella[numDevice],newparameter)==1){
+            return 1;
+        }
+        break; 
+    case 's':
+        LBAMTTsetStroke(machine->arrBiellaManovella[numDevice],newparameter);
+        if(LBAMTTsetStroke(machine->arrBiellaManovella[numDevice],newparameter)==1){
+            return 1;
+        }
+        break;  
+    case 'w':
+        LBAMTTsetWBiella(machine->arrBiellaManovella[numDevice],newparameter);
+        if(LBAMTTsetWBiella(machine->arrBiellaManovella[numDevice],newparameter)==1){
+            return 1;
+        }
+        break;                     
+    default:
+        return 1;
+    }
+    
+    return 0;
+} 
+
+/*
+    set new carrello gru
+*/
+int eb_set_carrelloGru(EbMachine* machine,int numDevice, char choice, double newparameter){
+    switch (choice)
+    {
+    case 'l':
+        eb_set_lengthShaft(machine->arrCarrelloGru[numDevice],newparameter);
+        if(eb_set_lengthShaft(machine->arrCarrelloGru[numDevice],newparameter)==1){
+            return 1;
+        }
+        break;
+    case 't':
+        eb_set_widthTowtruck(machine->arrCarrelloGru[numDevice],newparameter);
+        if(eb_set_widthTowtruck(machine->arrCarrelloGru[numDevice],newparameter)==1){
+            return 1;
+        }
+        break;
+    case 'w':
+        eb_set_widthPlatform(machine->arrCarrelloGru[numDevice],newparameter);
+        if(eb_set_widthPlatform(machine->arrCarrelloGru[numDevice],newparameter)==1){
+            return 1;
+        }
+        break;
+    case 'r':
+        eb_set_rotation(machine->arrCarrelloGru[numDevice],newparameter);
+        if(eb_set_rotation(machine->arrCarrelloGru[numDevice],newparameter)==1){
+            return 1;
+        }
+        break;           
+    default:
+        return 1;
+    }
+    
+    return 0;
+} 
 
 string eb_machine_to_svg(EbMachine* machine, int n){
 

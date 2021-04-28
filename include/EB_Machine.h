@@ -13,9 +13,9 @@ using namespace std;
     struct representing the machine
 */
 struct EbMachine {
-    double XposMachine;
-    EbDevice** arrCarrelloGru;
-    LBAMTTdevice** arrBiellaManovella;
+    double XposMachine; //poszione iniziale della machine, coordinate centro primo albero 
+    EbDevice** arrCarrelloGru; //array dinamico di puntatori a struct EbDevice
+    LBAMTTdevice** arrBiellaManovella; //array dinamico di puntatori a struct LBAMTTdevice
 };
 
 /**
@@ -25,9 +25,13 @@ EbMachine* eb_machine_init(double XposMachine, int n, double* dShaft, double* st
                             double* length_shaft, double* width_towtruck, double* width_platform, double* rotation);
 
 /**
+    A function checking mechanical constraints (XposMachine) of the machine 
+**/
+bool eb_checkConstraints_Machine(double XposMachine);
+/**
     A function checking mechanical constraints of the machine 
 **/
-bool eb_checkConstraints_Machine(double* angle,int n);
+bool eb_checkConstraints_Machine_angle(double* angle,int n);
 
 /*
     A function which calculate the position of the towtruk
