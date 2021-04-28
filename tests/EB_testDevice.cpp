@@ -194,7 +194,7 @@ TEST_CASE("eb_to_svg should return a string with the right code","[MyDevice]"){
     EbDevice* device = eb_init(600,180,350,-25,300);
     string check = eb_read_from_file("prototipo.svg");
 
-    REQUIRE(eb_to_svg(device,true)==check);
+    REQUIRE(eb_to_svg(device,false)==check);
 }
 
 /*
@@ -232,14 +232,14 @@ TEST_CASE("eb_parse should return NULL, if the measures read from file don't res
 }
 TEST_CASE("eb_parse should create a struct from a svg file","[MyDevice]"){
 
-    string svg = eb_read_from_file("deviceToRead.svg");
+    string svg = eb_read_from_file("prototipo.svg");
 
     EbDevice* device = eb_parse(svg);
 
     REQUIRE(device!=NULL);
     REQUIRE(device->length_shaft==600);
-    REQUIRE(device->width_towtruck==160);
-    REQUIRE(device->width_platform==320);
-    REQUIRE(device->rotation==-30);
-    REQUIRE(device->sliding==400);
+    REQUIRE(device->width_towtruck==180);
+    REQUIRE(device->width_platform==350);
+    REQUIRE(device->rotation==-25);
+    REQUIRE(device->sliding==300);
 }

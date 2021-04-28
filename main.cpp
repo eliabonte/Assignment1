@@ -1,7 +1,16 @@
 #include <iostream>
+#include <iostream>
+#include <string.h>
+#include <cmath>
+#include <fstream>
+#include <streambuf>
+#include <string>
+#include <sstream>
 
 #include "include/EB_Device.h"
 #include "include/LBAMTTBiellaManovella.h"
+#include "include/EB_Machine.h"
+
 
 
 using namespace std;
@@ -18,21 +27,97 @@ void eb_printParameters(EbDevice* device){
     cout<<"Sliding: "<<device -> sliding<<endl;
 }
 
-int main(int, char**) {
+int main() {
+    
+    EbMachine* eb_machine = new EbMachine;
+    double XposMachine = 100;
+    int n ; //numero di coppie di device nella machine
 
-    LBAMTTdevice* device = new LBAMTTdevice;
+    cout<<"Nella tua machine quante coppie di biella-manovella + carrelo-gru vuoi??"<<endl;
+    cin>>n;
+    
+    /*
+    LBAMTTdevice** arrBiellaManovella;
+    EbDevice** arrCarrelloGru;
 
-    double dShaft = 120;
-    double stroke = 300;
-    double lenBiella = 300;
-    double wBiella = 60;
-    double hPistone = 100;
-    double dPistone = 150;
-    double angle = 60;
+    arrBiellaManovella = new LBAMTTdevice* [n];
+    arrCarrelloGru = new EbDevice* [n];
+
+    double* dShaft = new double [n];
+    double* stroke = new double [n];
+    double* lenBiella = new double [n];
+    double* wBiella = new double [n];
+    double* hPistone = new double [n];
+    double* dPistone = new double [n];
+    double* angle = new double [n];
+
+    for(int i=0;i<n;i++){
+        dShaft[i] = 60;
+        stroke[i] = 150;
+        lenBiella[i] =  150;
+        wBiella[i] = 30;
+        hPistone[i] = 50;
+        dPistone[i] = 75;
+        angle[i] = 40;
+    }
+    angle[0] = 290;
 
 
+    double* sliding = new double [n];
 
+    double* length_shaft = new double [n];
+    double* width_towTruck = new double [n];
+    double* width_platform = new double [n];
+    double* rotation = new double [n];
+    
+    for(int i=0;i<n;i++){
+        length_shaft[i]=350;
+        width_towTruck[i]=100;
+        width_platform[i]=150;
+        rotation[i]=-30;
+    }
+    rotation[1]=30;
+    rotation[2]=-60;
+    
+    
+    eb_machine = eb_machine_init(XposMachine, n, dShaft, stroke, lenBiella, wBiella, hPistone, dPistone, angle, length_shaft, width_towTruck, width_platform, rotation);
+    if(eb_machine==NULL){
+        cout<<"ERROR 404!!!"<<endl;
+        exit(1);
+    }
 
+    eb_save_to_file(eb_machine_to_svg(eb_machine,n),"machine");
+    */
+    ;
+    string fileToRead;
+
+    string svg=eb_read_from_file("machine.svg");
+
+    n=3;
+
+    eb_machine= eb_machine_parse(svg,n);
+   
+    eb_save_to_file(eb_machine_to_svg(eb_machine,n),"machineverifica");
+
+/*
+    delete [] dShaft;
+    delete []  stroke;
+    delete []  lenBiella;
+    delete [] wBiella;
+    delete [] hPistone;
+    delete []  dPistone;
+    delete [] angle;
+
+    delete [] length_shaft;
+    delete [] width_towTruck;
+    delete [] width_platform;
+    delete [] rotation;
+    delete [] sliding;
+
+    delete [] arrBiellaManovella;
+    delete [] arrCarrelloGru;
+    */
+    /*
     device = LBAMTTinitDevice(dShaft, stroke, lenBiella, wBiella, hPistone, dPistone, angle);
     if(device == NULL) cout << "errore parametri" << endl;
     else{
@@ -44,7 +129,7 @@ int main(int, char**) {
 
     //LBAMTTsaveToFile(LBAMTTdeviceToStringSVG(LBAMTTdeviceFromStringSVG(LBAMTTloadFromFile("prova-biella-manovella1.svg")), 400, 200, true), "copia-biella-manovella1.svg");
 
-
+*/
     /*
     EbDevice* MyDevice = new EbDevice;
     double length_shaft;
@@ -214,6 +299,9 @@ int main(int, char**) {
 
     }while(choice=='1' || choice=='2' || choice=='3' || choice=='4'|| choice=='5');
 
+    */
+   /*
+    EbDevice* MyDevice = new EbDevice;
     EbDevice* deviceRead = new EbDevice;
     string fileToRead;
     cout<<endl<<"Tell me the name(and extension) of the file you want to load and create a struct Device: ";
@@ -221,12 +309,15 @@ int main(int, char**) {
     string svg=eb_read_from_file(fileToRead);
     deviceRead=eb_parse(svg);
     if(deviceRead==NULL){
-        cout<<errormsg<<endl;
+        cout<<"errormsg"<<endl;
         exit(1);
     }
     
     cout<<endl<<"Parameters of the svg load from file: "<<endl;
     eb_printParameters(deviceRead);
-    */
+
+    eb_destroy_device(MyDevice);
+    
+*/
     return 0;
 }

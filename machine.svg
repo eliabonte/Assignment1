@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="background-color:white" width="1500" height="1000" >
+
+<g transform = "rotate(-90,100.000000,100.000000)">
+
+<rect x="29.523053" y="110.651510" width="150.000000" height="30.000000" fill="blue" transform="rotate(61.975679,29.523053,125.651510)" />
+
+<rect x="62.500000" y="237.063746" width="75.000000" height="50.000000" fill="red" transform="rotate(0.000000,0.000000,0.000000)" />
+
+<circle cx="100.000000" cy="100.000000" r="42.000000" fill="green" />
+
+<circle cx="29.523053" cy="125.651510" r="21.000000" fill="green" />
+
+<rect x="100.000000" y="79.000000" width="75.000000" height="42.000000" fill="green" transform="rotate(-200.000000,100.000000,100.000000)" />
+
+<circle cx="100.000000" cy="100.000000" r="30.000000" fill="gray" />
+
+<circle cx="29.523053" cy="125.651510" r="15.000000" fill="Blue" />
+
+<circle cx="100.000000" cy="258.063746" r="15.000000" fill="Blue" />
+
+</g>
+<g>
+<rect x = "287.063746" y = "62.500000" width = "100.000000" height = "75.000000" stroke = "black" stroke-width = "3" fill = "yellow"/>
+</g>
+
+<g transform  = "rotate(-30.000000,337.063746,100.000000)">
+<rect x = "327.063746" y = "100.000000" width = "20.000000" height = "350.000000" stroke = "black" stroke-width = "3" fill = "orange" />
+<circle cx = "337.063746" cy = "100.000000" r = "10.000000" stroke = "black" stroke-width = "3" fill = "white"/>
+</g>
+
+<g>
+<rect x = "437.063746" y = "393.108891" width = "150.000000" height = "20"  stroke = "black" stroke-width = "3" fill = "black" />
+</g>
+
+<g transform = "rotate(-90,512.063746,351.108891)">
+
+<rect x="560.272816" y="393.562225" width="150.000000" height="30.000000" fill="blue" transform="rotate(108.747237,560.272816,408.562225)" />
+
+<rect x="474.563746" y="529.604069" width="75.000000" height="50.000000" fill="red" transform="rotate(0.000000,0.000000,0.000000)" />
+
+<circle cx="512.063746" cy="351.108891" r="42.000000" fill="green" />
+
+<circle cx="560.272816" cy="408.562225" r="21.000000" fill="green" />
+
+<rect x="512.063746" y="330.108891" width="75.000000" height="42.000000" fill="green" transform="rotate(50.000000,512.063746,351.108891)" />
+
+<circle cx="512.063746" cy="351.108891" r="30.000000" fill="gray" />
+
+<circle cx="560.272816" cy="408.562225" r="15.000000" fill="Blue" />
+
+<circle cx="512.063746" cy="550.604069" r="15.000000" fill="Blue" />
+
+</g>
+<g>
+<rect x = "740.558923" y = "313.608891" width = "100.000000" height = "75.000000" stroke = "black" stroke-width = "3" fill = "yellow"/>
+</g>
+
+<g transform  = "rotate(30.000000,790.558923,351.108891)">
+<rect x = "780.558923" y = "351.108891" width = "20.000000" height = "350.000000" stroke = "black" stroke-width = "3" fill = "orange" />
+<circle cx = "790.558923" cy = "351.108891" r = "10.000000" stroke = "black" stroke-width = "3" fill = "white"/>
+</g>
+
+<g>
+<rect x = "540.558923" y = "644.217783" width = "150.000000" height = "20"  stroke = "black" stroke-width = "3" fill = "black" />
+</g>
+
+<g transform = "rotate(-90,615.558923,602.217783)">
+
+<rect x="663.767994" y="644.671116" width="150.000000" height="30.000000" fill="blue" transform="rotate(108.747237,663.767994,659.671116)" />
+
+<rect x="578.058923" y="780.712960" width="75.000000" height="50.000000" fill="red" transform="rotate(0.000000,0.000000,0.000000)" />
+
+<circle cx="615.558923" cy="602.217783" r="42.000000" fill="green" />
+
+<circle cx="663.767994" cy="659.671116" r="21.000000" fill="green" />
+
+<rect x="615.558923" y="581.217783" width="75.000000" height="42.000000" fill="green" transform="rotate(50.000000,615.558923,602.217783)" />
+
+<circle cx="615.558923" cy="602.217783" r="30.000000" fill="gray" />
+
+<circle cx="663.767994" cy="659.671116" r="15.000000" fill="Blue" />
+
+<circle cx="615.558923" cy="801.712960" r="15.000000" fill="Blue" />
+
+</g>
+<g>
+<rect x = "844.054100" y = "564.717783" width = "100.000000" height = "75.000000" stroke = "black" stroke-width = "3" fill = "yellow"/>
+</g>
+
+<g transform  = "rotate(-60.000000,894.054100,602.217783)">
+<rect x = "884.054100" y = "602.217783" width = "20.000000" height = "350.000000" stroke = "black" stroke-width = "3" fill = "orange" />
+<circle cx = "894.054100" cy = "602.217783" r = "10.000000" stroke = "black" stroke-width = "3" fill = "white"/>
+</g>
+
+<g>
+<rect x = "1122.162992" y = "767.217783" width = "150.000000" height = "20"  stroke = "black" stroke-width = "3" fill = "black" />
+</g>
+
+</svg>
