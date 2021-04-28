@@ -1,51 +1,15 @@
 
 #include "catch2/catch2.hpp"
-#include "include/EB_Device.h"
-#include "include/LBAMTTBiellaManovella.h"
-#include "include/EB_Machine.h"
-
+#include "../include/EB_Device.h"
 
 
 using namespace std;
 
-TEST_CASE("init should create a new struct","[EbMachine]"){
+TEST_CASE("init should create a new struct","[MyDevice]"){
+   
+    EbDevice* device = eb_init(400,160,300,-60,480);
 
-    int n=2;
-    double* dShaft = new double [n];
-    double* stroke = new double [n];
-    double* lenBiella = new double [n];
-    double* wBiella = new double [n];
-    double* hPistone = new double [n];
-    double* dPistone = new double [n];
-    double* angle = new double [n];
-
-    for(int i=0;i<n;i++){
-        dShaft[i] = 60;
-        stroke[i] = 150;
-        lenBiella[i] =  150;
-        wBiella[i] = 30;
-        hPistone[i] = 50;
-        dPistone[i] = 75;
-        angle[i] = 40;
-    }
-
-    double* sliding = new double [n];
-    double* length_shaft = new double [n];
-    double* width_towTruck = new double [n];
-    double* width_platform = new double [n];
-    double* rotation = new double [n];
-    
-    for(int i=0;i<n;i++){
-        length_shaft[i]=350;
-        width_towTruck[i]=100;
-        width_platform[i]=150;
-        rotation[i]=-30;
-    }
-    double XposMachine=100;
-
-    EbMachine* machine = eb_machine_init(XposMachine, n, dShaft, stroke, lenBiella, wBiella, hPistone, dPistone, angle, length_shaft, width_towTruck, width_platform, rotation);
-
-    REQUIRE(machine!=NULL);
+    REQUIRE(device!=NULL);
 }
 /*
     some tests regarding the function eb_checkConstraints which check mechanical constraints
@@ -240,9 +204,9 @@ TEST_CASE("eb_save_to_file should write a string in a file","[MyDevice]"){
 
     string stringToWrite="ciao";
     
-    eb_save_to_file(stringToWrite,"filetestsave");
+    eb_save_to_file(stringToWrite,"tests/filetestsave");
 
-    REQUIRE(eb_read_from_file("filetestsave.svg")==stringToWrite);
+    REQUIRE(eb_read_from_file("tests/filetestsave.svg")==stringToWrite);
 }
 /*
     testing eb_read_from_file
@@ -251,7 +215,7 @@ TEST_CASE("eb_read_from_file shoul read a string from a file","[MyDevice]"){
 
     string stringToRead="ciao";
 
-    REQUIRE(eb_read_from_file("filetestread.txt")==stringToRead);
+    REQUIRE(eb_read_from_file("tests/filetestread.txt")==stringToRead);
 }
 
 /*
@@ -259,7 +223,7 @@ TEST_CASE("eb_read_from_file shoul read a string from a file","[MyDevice]"){
 */
 TEST_CASE("eb_parse should return NULL, if the measures read from file don't respect the mechanical constraints","[MyDevice]"){
 
-    string svg = eb_read_from_file("wrongdevice.svg");
+    string svg = eb_read_from_file("tests/wrongdevice.svg");
 
     EbDevice* device = eb_parse(svg);
 

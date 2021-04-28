@@ -122,7 +122,11 @@ int eb_set_XposMachine(EbMachine* machine, double new_XposMachine){
 /*
     set new biella manovella
 */
-int eb_set_carrelloGru(EbMachine* machine,int numDevice, char choice, double newparameter){
+int eb_set_biellaManovella(EbMachine* machine,int numDevice, char choice, double newparameter){
+    if(machine==NULL){
+        return 1;
+    }
+    
     switch (choice)
     {
     case 'a':
@@ -178,6 +182,10 @@ int eb_set_carrelloGru(EbMachine* machine,int numDevice, char choice, double new
     set new carrello gru
 */
 int eb_set_carrelloGru(EbMachine* machine,int numDevice, char choice, double newparameter){
+    if(machine->arrCarrelloGru==NULL){
+        return 1;
+    }
+    
     switch (choice)
     {
     case 'l':
@@ -225,7 +233,6 @@ string eb_machine_to_svg(EbMachine* machine, int n){
         xShafts[i] = eb_cxShaft(machine->arrCarrelloGru[i-1]);
         yShafts[i] = eb_cyShaft(machine->arrCarrelloGru[i-1],machine->arrBiellaManovella[i],yShafts[i-1]);
     }
-
 
     /*
         creo la stringa machine_svg
@@ -442,6 +449,20 @@ EbMachine* eb_machine_parse(string svg){
     
     eb_machine->arrBiellaManovella=arrBiellaManovella;
     eb_machine->arrCarrelloGru=arrCarrelloGru;
+
+    if(eb_checkConstraints_Machine(eb_machine->XposMachine)==false){
+        return NULL;
+    }
+
+    //controllo angoli
+    double* angles = new double[n];
+    for(int i=0;i<n;i++){
+        angles[i]=eb_machine->arrBiellaManovella[i]->angle;
+    }
+    if(eb_checkConstraints_Machine_angle(angles,n)==false){
+        return NULL;
+    }
+
 
     return eb_machine;
 }

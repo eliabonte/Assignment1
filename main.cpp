@@ -56,7 +56,6 @@ int main() {
     }
     angle[0] = 290;
 
-
     double* sliding = new double [n];
     double* length_shaft = new double [n];
     double* width_towTruck = new double [n];

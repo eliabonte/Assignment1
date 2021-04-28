@@ -38,6 +38,21 @@ bool eb_checkConstraints_Machine_angle(double* angle,int n);
 */
 double eb_sliding(double cxShaft, double stroke, double lenBiella, double angle, double hPistone, double wBiella);
 
+/*
+    set new XposMachine
+*/
+int eb_set_XposMachine(EbMachine* machine, double new_XposMachine);
+
+/*
+    set new biella manovella
+*/
+int eb_set_biellaManovella(EbMachine* machine,int numDevice, char choice, double newparameter);
+
+/*
+    set new carrello gru
+*/
+int eb_set_carrelloGru(EbMachine* machine,int numDevice, char choice, double newparameter);
+
 /**
     A function which produce a string with svg code for the machine
 **/
