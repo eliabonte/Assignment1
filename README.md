@@ -43,8 +43,8 @@ funzione dello spostamento del carrello lungo x
 Realizzare una machine --> combinazione tra il mio device e quello realizzato da [Matteo Albi](https://github.com/MatteoAlbi/tpa-homework1) .
 
 ![](machine.svg)
-
-Vi è la possibilità di integrare n coppie di device.
+Vi è la possibilità di integrare n coppie di device:
+![](prototipo_machine.svg)
 
 
 
