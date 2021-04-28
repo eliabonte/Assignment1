@@ -40,9 +40,17 @@ funzione dello spostamento del carrello lungo x
 
 ## Parte 2
 
-Realizzare una machine --> combinazione tra il mio device e quello realizzato da [Matteo Albi](https://github.com/MatteoAlbi/tpa-homework1) .
-
+Realizzare una machine: combinazione tra il mio device e quello realizzato da [Matteo Albi](https://github.com/MatteoAlbi/tpa-homework1). L'unica differenza con quello originale di Matteo Albi è che è stato ruotato di -90 gradi per poterlo integrare meglio con il mio.
+Biella-manovella + carrello-gru:
 ![](machine.svg)
+### Parametri: 
+* XposMachine: coordinata x iniziale della machine, corrisponde alla coordinata x del centro dell'albero motore del primo device biella-manovella
+* EbDevice** arr: array dinamico di puntatori a struct EbDevice
+* LBAMTTdevice** arrBiellaManovella; array dinamico di puntatori a struct LBAMTTdevice
+### Vincoli:
+* angolo della manovella compreso tra 0 e 180 gradi (non vale per il primo device biella-manovella)
+* vincoli di costruzione dei singoli device
+
 Vi è la possibilità di integrare n coppie di device:
 ![](prototipo_machine.svg)
 
