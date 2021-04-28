@@ -30,7 +30,7 @@ void eb_printParameters(EbDevice* device){
 int main() {
     
     EbMachine* eb_machine = new EbMachine;
-    double XposMachine = 100;
+    double XposMachine = 200;
     int n ; //numero di coppie di device nella machine
 
     cout<<"Nella tua machine quante coppie di biella-manovella + carrelo-gru vuoi??"<<endl;
@@ -80,6 +80,7 @@ int main() {
 
     eb_save_to_file(eb_machine_to_svg(eb_machine,n),"machine1");
     
+    /*
     eb_save_to_file(eb_machine_to_svg(eb_machine,n),"machine2");
 
     EbMachine* eb_machine1 = new EbMachine;
@@ -101,7 +102,7 @@ int main() {
     
    
     //eb_save_to_file(eb_machine_to_svg(eb_machine,n),"machineverifica");
-
+*/
 /*
     delete [] dShaft;
     delete []  stroke;
