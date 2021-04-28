@@ -1,12 +1,9 @@
 #ifndef EB_DEVICE_H
 #define EB_DEVICE_H
 
+#include <iostream>
 #include <string.h>
-#include <cmath>
-#include <fstream>
-#include <streambuf>
 #include <string>
-#include <sstream>
 
 
 using namespace std;
@@ -42,7 +39,7 @@ bool eb_drawConstraints(EbDevice* eb_device);
 
 /**
     A function which produce a string with svg code
-    if with_measures is true the drawing will include measurements   
+    if with_measures is true the drawing will include measurements  
 **/
 string eb_to_svg(EbDevice* eb_device, bool with_measures);
 
@@ -109,5 +106,10 @@ EbDevice* eb_parse(string svg);
     A function which read from a file a string
 */
 string eb_read_from_file(string filename);
+
+/*
+    function which destroy the device
+*/
+int eb_destroy_device(EbDevice* device);
 
 #endif //DEVICE_H
