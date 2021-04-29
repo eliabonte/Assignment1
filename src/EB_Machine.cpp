@@ -618,7 +618,7 @@ bool eb_devicesEB_are_equal(EbDevice* device1, EbDevice* device2){
 }    
 
 /*
-    funzione che ritorna il numero di coppie di device n presenti in una machine, lette da file svg
+    funzione che ritorna il numero di pezzi di stringa presenti in una stringa più lunga
 */
 int eb_count_stringOccurences(string &pat, string &txt){
     int M = pat.length();
