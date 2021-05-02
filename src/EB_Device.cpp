@@ -98,7 +98,7 @@ bool eb_drawConstraints(EbDevice* eb_device){
 string eb_to_svg(EbDevice* eb_device, bool with_measures){
 
     if(eb_drawConstraints(eb_device)==false){
-        return "";
+        return "ERROR: constraints not respected!";
     }
     
     /*parametri device*/

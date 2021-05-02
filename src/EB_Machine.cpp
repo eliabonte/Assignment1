@@ -238,6 +238,11 @@ string eb_machine_to_svg(EbMachine* machine, int n){
     /*
         creo la stringa machine_svg
     */
+
+   if(machine == NULL){
+       machine_svg = "ERROR: constraints not respected!";
+       return machine_svg;
+   }
    string string1, string2;
     machine_svg += "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n\n"
                   "<svg xmlns=\"http://www.w3.org/2000/svg\" style=\"background-color:white\" width=\"1500\" height=\"1000\" >\n\n";
@@ -339,7 +344,7 @@ string eb_new_to_svg(EbDevice* eb_device, double yShaft, double dPistone){
     double YtowTruck = Ycir-std_towtruckHeight/2;
     
     if(eb_drawConstraints(eb_device)==false){
-        return "";
+        return "ERROR: constraints not respected!";
     }
     
     /*parametri device*/
